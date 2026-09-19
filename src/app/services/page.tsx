@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 export default async function ServicesPage() {
-  let services = [];
+  let services: any[] = [];
   try {
     services = await prisma.service.findMany({
       where: { isActive: true },

@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  let posts = [];
+  let posts: any[] = [];
   try {
     posts = await prisma.blogPost.findMany({
       include: { category: true, author: true },

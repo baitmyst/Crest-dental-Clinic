@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 export default async function FaqPage() {
-  let faqs = [];
+  let faqs: any[] = [];
   try {
     faqs = await prisma.faq.findMany({
       where: { isPublished: true },
