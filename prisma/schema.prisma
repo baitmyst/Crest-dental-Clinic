@@ -1,0 +1,398 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  RECEPTIONIST
+  DENTIST
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONTACTED
+  CONFIRMED
+  CHECKED_IN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum BookingSource {
+  WEBSITE
+  PHONE
+  WHATSAPP
+  WALK_IN
+  ADMIN
+}
+
+enum InquiryStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  WHATSAPP
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model User {
+  id              String           @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String           @unique
+  phone           String?
+  passwordHash    String
+  role            Role             @default(RECEPTIONIST)
+  imageUrl        String?
+  isActive        Boolean          @default(true)
+  emailVerifiedAt DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  dentistProfile  DentistProfile?
+  assignedInquiries ContactInquiry[] @relation("AssignedStaff")
+  authoredPosts   BlogPost[]       @relation("BlogAuthor")
+  auditLogs       AuditLog[]       @relation("ActorAudit")
+  uploadedMedia   MediaAsset[]     @relation("MediaUploader")
+
+  @@index([email])
+}
+
+model Client {
+  id                           String               @id @default(cuid())
+  fullName                     String
+  phone                        String
+  email                        String
+  dateOfBirth                  String?
+  isReturningPatient           Boolean              @default(false)
+  preferredCommunicationMethod String               @default("phone")
+  consentPrivacyAt             DateTime             @default(now())
+  createdAt                    DateTime             @default(now())
+  updatedAt                    DateTime             @updatedAt
+
+  appointments                 AppointmentRequest[]
+  notifications                Notification[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model DentistProfile {
+  id                String               @id @default(cuid())
+  userId            String               @unique
+  user              User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  professionalTitle String?
+  specialties       String               @default("General Dentistry")
+  qualifications    String?
+  biography         String?
+  languages         String?
+  yearsExperience   Int?
+  displayOrder      Int                  @default(0)
+  isBookable        Boolean              @default(true)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  workingHours      WorkingHours[]
+  timeOff           TimeOff[]
+  blockedSlots      BlockedSlot[]
+  assignedAppointments AppointmentRequest[] @relation("AssignedDentist")
+  preferredAppointments AppointmentRequest[] @relation("PreferredDentist")
+  services          DentistService[]
+
+  @@index([userId])
+}
+
+model Service {
+  id               String               @id @default(cuid())
+  name             String
+  slug             String               @unique
+  category         String
+  shortDescription String
+  fullDescription  String
+  benefits         String               // JSON string or newline list
+  treatmentProcess String               // JSON string or step outline
+  faqContent       String               // JSON string of QA pairs
+  durationMinutes  Int                  @default(45)
+  bufferMinutes    Int                  @default(15)
+  imageUrl         String?
+  imageAltText     String?
+  isActive         Boolean              @default(true)
+  seoTitle         String?
+  seoDescription   String?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  appointments     AppointmentRequest[]
+  dentists         DentistService[]
+
+  @@index([slug])
+}
+
+model DentistService {
+  dentistId String
+  serviceId String
+  dentist   DentistProfile @relation(fields: [dentistId], references: [id], onDelete: Cascade)
+  service   Service        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@id([dentistId, serviceId])
+}
+
+model ClinicLocation {
+  id                     String           @id @default(cuid())
+  name                   String           @default("Dr. Dental Crest Dental Surgery")
+  address                String?
+  directionsNote         String?          @default("Visit our Kampala clinic. Please call us for directions.")
+  phone                  String           @default("+256 773 003214")
+  email                  String?
+  timezone               String           @default("Africa/Kampala")
+  latitude               Float?
+  longitude              Float?
+  mapUrl                 String?
+  isPublicAddressVerified Boolean          @default(false)
+  isActive               Boolean          @default(true)
+
+  workingHours           WorkingHours[]
+  blockedSlots           BlockedSlot[]
+  timeOff                TimeOff[]
+  appointments           AppointmentRequest[]
+}
+
+model WorkingHours {
+  id          String          @id @default(cuid())
+  dentistId   String?
+  locationId  String
+  dayOfWeek   Int             // 0=Sunday, 1=Monday, ..., 6=Saturday
+  startTime   String          // e.g. "08:00"
+  endTime     String          // e.g. "20:00"
+  isAvailable Boolean         @default(true)
+  isVerified  Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  dentist     DentistProfile? @relation(fields: [dentistId], references: [id], onDelete: Cascade)
+  location    ClinicLocation  @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@index([locationId, dayOfWeek])
+}
+
+model BlockedSlot {
+  id         String          @id @default(cuid())
+  dentistId  String?
+  locationId String
+  startAt    DateTime
+  endAt      DateTime
+  reason     String
+  createdAt  DateTime        @default(now())
+
+  dentist    DentistProfile? @relation(fields: [dentistId], references: [id], onDelete: Cascade)
+  location   ClinicLocation  @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model TimeOff {
+  id         String         @id @default(cuid())
+  dentistId  String
+  locationId String
+  startAt    DateTime
+  endAt      DateTime
+  reason     String
+  createdAt  DateTime       @default(now())
+
+  dentist    DentistProfile @relation(fields: [dentistId], references: [id], onDelete: Cascade)
+  location   ClinicLocation @relation(fields: [locationId], references: [id], onDelete: Cascade)
+}
+
+model AppointmentRequest {
+  id                         String            @id @default(cuid())
+  referenceNumber            String            @unique
+  clientId                   String
+  serviceId                  String
+  preferredDentistId         String?
+  assignedDentistId          String?
+  locationId                 String
+  preferredDate              String            // YYYY-MM-DD
+  preferredTime              String            // e.g. "10:00"
+  startAt                    DateTime?
+  endAt                      DateTime?
+  status                     AppointmentStatus @default(PENDING)
+  source                     BookingSource     @default(WEBSITE)
+  clientMessage              String?
+  internalNote               String?
+  cancellationReason         String?
+  cancellationToken          String?           @unique
+  cancellationTokenExpiresAt DateTime?
+  createdAt                  DateTime          @default(now())
+  updatedAt                  DateTime          @updatedAt
+
+  client                     Client            @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  service                    Service           @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  preferredDentist           DentistProfile?   @relation("PreferredDentist", fields: [preferredDentistId], references: [id], onDelete: SetNull)
+  assignedDentist            DentistProfile?   @relation("AssignedDentist", fields: [assignedDentistId], references: [id], onDelete: SetNull)
+  location                   ClinicLocation    @relation(fields: [locationId], references: [id], onDelete: Restrict)
+  notifications              Notification[]
+
+  @@index([referenceNumber])
+  @@index([status])
+  @@index([preferredDate])
+  @@index([assignedDentistId])
+  @@index([serviceId])
+}
+
+model ContactInquiry {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  subject      String
+  message      String
+  status       InquiryStatus @default(OPEN)
+  assignedToId String?
+  internalNote String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  assignedTo   User?         @relation("AssignedStaff", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+}
+
+model Testimonial {
+  id               String   @id @default(cuid())
+  displayName      String
+  quote            String
+  rating           Int?     @default(5)
+  imageUrl         String?
+  consentConfirmed Boolean  @default(false)
+  isPublished      Boolean  @default(false)
+  displayOrder     Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Faq {
+  id           String   @id @default(cuid())
+  question     String
+  answer       String
+  category     String   @default("General")
+  isPublished  Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+}
+
+model BlogCategory {
+  id    String     @id @default(cuid())
+  name  String
+  slug  String     @unique
+  posts BlogPost[]
+}
+
+model BlogPost {
+  id                    String        @id @default(cuid())
+  title                 String
+  slug                  String        @unique
+  excerpt               String
+  content               String
+  featuredImageUrl      String?
+  featuredImageAltText  String?
+  authorId              String
+  categoryId            String?
+  status                PostStatus    @default(DRAFT)
+  publishedAt           DateTime?
+  seoTitle              String?
+  seoDescription        String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  author                User          @relation("BlogAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+  category              BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([slug])
+  @@index([status])
+}
+
+model MediaAsset {
+  id           String   @id @default(cuid())
+  fileName     String
+  url          String
+  altText      String
+  title        String?
+  mimeType     String
+  fileSize     Int
+  uploadedById String?
+  createdAt    DateTime @default(now())
+
+  uploadedBy   User?    @relation("MediaUploader", fields: [uploadedById], references: [id], onDelete: SetNull)
+}
+
+model Notification {
+  id                   String              @id @default(cuid())
+  clientId             String?
+  appointmentRequestId String?
+  recipient            String
+  channel              NotificationChannel @default(EMAIL)
+  type                 String
+  subject              String?
+  body                 String
+  status               String              @default("SENT")
+  sentAt               DateTime?           @default(now())
+  createdAt            DateTime            @default(now())
+
+  client               Client?             @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  appointmentRequest   AppointmentRequest? @relation(fields: [appointmentRequestId], references: [id], onDelete: SetNull)
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  actorId      String?
+  action       String
+  entityType   String
+  entityId     String?
+  metadataJson String?
+  createdAt    DateTime @default(now())
+
+  actor        User?    @relation("ActorAudit", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+}
+
+model SiteSettings {
+  id                    String   @id @default("default")
+  clinicName            String   @default("Dr. Dental Crest Dental Surgery")
+  logoUrl               String?
+  faviconUrl            String?
+  primaryColor          String   @default("#181d26")
+  secondaryColor        String   @default("#0a2e0e")
+  accentColor           String   @default("#aa2d00")
+  contactEmail          String?
+  contactPhone          String   @default("+256 773 003214")
+  whatsappNumber        String?
+  isWhatsappVerified    Boolean  @default(false)
+  emergencyPhone        String?  @default("+256 773 003214")
+  locationText          String   @default("Kampala, Uganda")
+  timezone              String   @default("Africa/Kampala")
+  defaultSeoTitle       String   @default("Dr. Dental Crest Dental Surgery | Trusted Dental Care in Kampala")
+  defaultSeoDescription String   @default("Professional general, cosmetic, orthodontic, implant and children's dentistry in Kampala, Uganda. Request your appointment with Dr. Silver.")
+  socialLinks           String?  // JSON string
+  bookingSettings       String?  // JSON string: leadTimeHours, maxAdvanceDays, autoConfirm
+  notificationSettings  String?  // JSON string: email notifications, templates
+  ratingEnabled         Boolean  @default(false)
+  ratingValue           Float?   @default(5.0)
+  ratingLabel           String?  @default("Rated 5.0 by our patients")
+  updatedAt             DateTime @updatedAt
+}
