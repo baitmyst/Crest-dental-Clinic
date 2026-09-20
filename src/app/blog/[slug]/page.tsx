@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Calendar, Phone, ArrowLeft, ArrowRight, User, BookOpen } from "lucide-react";
 import { CLINIC_NAME, CLINIC_PHONE, CLINIC_PHONE_DIGITS, PRIMARY_CTA, SECONDARY_CTA } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getBlogPostBySlug } from "@/lib/admin-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  const post = await getBlogPostBySlug(slug);
   if (!post) return { title: "Article Not Found" };
 
   return {
@@ -21,10 +21,7 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await prisma.blogPost.findUnique({
-    where: { slug },
-    include: { category: true, author: true },
-  });
+  const post = await getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -62,7 +59,7 @@ export default async function BlogDetailPage({
 
           {/* Post Content */}
           <div className="prose prose-lg max-w-none text-[#333840] leading-relaxed space-y-5 text-[16px]">
-            {post.content.split("\n\n").map((paragraph, idx) => {
+            {post.content.split("\n\n").map((paragraph: string, idx: number) => {
               if (paragraph.startsWith("## ")) {
                 return (
                   <h2 key={idx} className="text-[24px] font-medium text-[#181d26] pt-4">

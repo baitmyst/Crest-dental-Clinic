@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabase";
 import { InquiryStatus } from "@prisma/client";
 
 const contactSchema = z.object({
@@ -17,20 +18,43 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const validated = contactSchema.parse(body);
 
-    const inquiry = await prisma.contactInquiry.create({
-      data: {
-        name: validated.name,
-        phone: validated.phone,
-        email: validated.email,
-        subject: validated.subject,
-        message: validated.message,
-        status: InquiryStatus.OPEN,
-      },
-    });
+    let inquiryId = "";
+    try {
+      const inquiry = await prisma.contactInquiry.create({
+        data: {
+          name: validated.name,
+          phone: validated.phone,
+          email: validated.email,
+          subject: validated.subject,
+          message: validated.message,
+          status: InquiryStatus.OPEN,
+        },
+      });
+      inquiryId = inquiry.id;
+    } catch (err) {
+      console.warn("Prisma contact inquiry creation failed, inserting via Supabase:", err);
+      const { data: supaInq, error: supaErr } = await supabaseAdmin
+        .from("contact_inquiries")
+        .insert({
+          name: validated.name,
+          phone: validated.phone,
+          email: validated.email,
+          subject: validated.subject,
+          message: validated.message,
+          status: "OPEN",
+        })
+        .select("id")
+        .single();
+
+      if (supaErr) {
+        throw new Error(supaErr.message);
+      }
+      inquiryId = supaInq?.id || "inq-created";
+    }
 
     return NextResponse.json({
       success: true,
-      id: inquiry.id,
+      id: inquiryId,
       message:
         "Thank you for contacting Dr. Dental Crest Dental Surgery. Our team will respond as soon as possible.",
     });

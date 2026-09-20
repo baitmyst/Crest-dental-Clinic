@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabase";
 import { generateReferenceNumber } from "@/lib/utils";
 import { AppointmentStatus, BookingSource, NotificationChannel } from "@prisma/client";
 
@@ -27,10 +28,22 @@ export async function POST(req: NextRequest) {
     // Strict Friday Check: Prevent booking if Friday is selected while unverified
     const targetDate = new Date(`${validated.preferredDate}T00:00:00`);
     if (targetDate.getDay() === 5) {
-      const fridayHours = await prisma.workingHours.findFirst({
-        where: { dayOfWeek: 5 },
-      });
-      if (!fridayHours || !fridayHours.isVerified || !fridayHours.isAvailable) {
+      let isFridayVerified = false;
+      try {
+        const fridayHours = await prisma.workingHours.findFirst({
+          where: { dayOfWeek: 5 },
+        });
+        isFridayVerified = !!(fridayHours && fridayHours.isVerified && fridayHours.isAvailable);
+      } catch {
+        const { data: supaFriday } = await supabaseAdmin
+          .from("working_hours")
+          .select("is_verified, is_available")
+          .eq("day_of_week", 5)
+          .maybeSingle();
+        isFridayVerified = !!(supaFriday && supaFriday.is_verified && supaFriday.is_available);
+      }
+
+      if (!isFridayVerified) {
         return NextResponse.json(
           {
             error:
@@ -41,112 +54,204 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Resolve service
-    let service = await prisma.service.findUnique({
-      where: { slug: validated.serviceSlug },
-    });
-
-    if (!service) {
-      // If user selected "I am not sure / I would like advice"
-      service = await prisma.service.findFirst({
-        where: { slug: "general-dentistry-checkups" },
+    // Try standard Prisma flow first
+    try {
+      let service = await prisma.service.findUnique({
+        where: { slug: validated.serviceSlug },
       });
+
+      if (!service) {
+        service = await prisma.service.findFirst({
+          where: { slug: "general-dentistry-checkups" },
+        });
+      }
+
+      if (service) {
+        const location = await prisma.clinicLocation.findFirst();
+        if (location) {
+          let client = await prisma.client.findFirst({
+            where: {
+              OR: [{ email: validated.email }, { phone: validated.phone }],
+            },
+          });
+
+          if (!client) {
+            client = await prisma.client.create({
+              data: {
+                fullName: validated.fullName,
+                phone: validated.phone,
+                email: validated.email,
+                isReturningPatient: validated.isReturningPatient,
+                preferredCommunicationMethod: validated.preferredCommunicationMethod,
+                consentPrivacyAt: new Date(),
+              },
+            });
+          } else {
+            client = await prisma.client.update({
+              where: { id: client.id },
+              data: {
+                fullName: validated.fullName,
+                preferredCommunicationMethod: validated.preferredCommunicationMethod,
+                isReturningPatient: validated.isReturningPatient,
+              },
+            });
+          }
+
+          let referenceNumber = generateReferenceNumber();
+          let existingRef = await prisma.appointmentRequest.findUnique({
+            where: { referenceNumber },
+          });
+          while (existingRef) {
+            referenceNumber = generateReferenceNumber();
+            existingRef = await prisma.appointmentRequest.findUnique({
+              where: { referenceNumber },
+            });
+          }
+
+          const cancellationToken = crypto.randomBytes(24).toString("hex");
+          const cancellationTokenExpiresAt = new Date();
+          cancellationTokenExpiresAt.setDate(cancellationTokenExpiresAt.getDate() + 30);
+
+          const appointment = await prisma.appointmentRequest.create({
+            data: {
+              referenceNumber,
+              clientId: client.id,
+              serviceId: service.id,
+              preferredDentistId: validated.preferredDentistId || null,
+              locationId: location.id,
+              preferredDate: validated.preferredDate,
+              preferredTime: validated.preferredTime,
+              status: AppointmentStatus.PENDING,
+              source: BookingSource.WEBSITE,
+              clientMessage: validated.clientMessage || null,
+              cancellationToken,
+              cancellationTokenExpiresAt,
+            },
+          });
+
+          try {
+            await prisma.notification.create({
+              data: {
+                clientId: client.id,
+                appointmentRequestId: appointment.id,
+                recipient: "admin@crestdentalsurgery.com",
+                channel: NotificationChannel.EMAIL,
+                type: "NEW_APPOINTMENT_REQUEST_ALERT",
+                subject: `New Appointment Request: ${referenceNumber} (${validated.fullName})`,
+                body: `A new appointment request has been submitted for ${service.name} on ${validated.preferredDate} at ${validated.preferredTime}. Client Phone: ${validated.phone}. Status: PENDING review.`,
+              },
+            });
+          } catch {
+            // Non-blocking notification
+          }
+
+          return NextResponse.json({
+            success: true,
+            referenceNumber: appointment.referenceNumber,
+            status: appointment.status,
+            cancellationToken,
+            message:
+              "Thank you. Your appointment request has been received. The Dr. Dental Crest Dental Surgery team will contact you shortly to confirm a convenient appointment time.",
+          });
+        }
+      }
+    } catch (prismaErr) {
+      console.warn("Prisma appointment booking failed, using Supabase fallback:", prismaErr);
     }
 
-    if (!service) {
-      return NextResponse.json({ error: "Service not found" }, { status: 404 });
+    // --- Supabase Fallback Flow ---
+    let serviceId = "srv-general";
+    let serviceName = "General Dentistry & Check-Ups";
+    const { data: supaService } = await supabaseAdmin
+      .from("services")
+      .select("id, name")
+      .or(`slug.eq.${validated.serviceSlug},id.eq.${validated.serviceSlug}`)
+      .maybeSingle();
+
+    if (supaService) {
+      serviceId = supaService.id;
+      serviceName = supaService.name;
     }
 
-    // Resolve clinic location
-    const location = await prisma.clinicLocation.findFirst();
-    if (!location) {
-      return NextResponse.json({ error: "Clinic location unavailable" }, { status: 500 });
-    }
+    // Find or create client in Supabase
+    let clientId = "";
+    const { data: existingClient } = await supabaseAdmin
+      .from("clients")
+      .select("id")
+      .or(`email.eq.${validated.email},phone.eq.${validated.phone}`)
+      .maybeSingle();
 
-    // Safe duplicate-detection logic for Client record (never create a user/public account!)
-    let client = await prisma.client.findFirst({
-      where: {
-        OR: [{ email: validated.email }, { phone: validated.phone }],
-      },
-    });
-
-    if (!client) {
-      client = await prisma.client.create({
-        data: {
-          fullName: validated.fullName,
+    if (existingClient?.id) {
+      clientId = existingClient.id;
+      await supabaseAdmin
+        .from("clients")
+        .update({
+          full_name: validated.fullName,
+          preferred_communication_method: validated.preferredCommunicationMethod,
+          is_returning_patient: validated.isReturningPatient,
+        })
+        .eq("id", clientId);
+    } else {
+      const { data: newClient, error: clientErr } = await supabaseAdmin
+        .from("clients")
+        .insert({
+          full_name: validated.fullName,
           phone: validated.phone,
           email: validated.email,
-          isReturningPatient: validated.isReturningPatient,
-          preferredCommunicationMethod: validated.preferredCommunicationMethod,
-          consentPrivacyAt: new Date(),
-        },
-      });
-    } else {
-      // Update communication preferences safely
-      client = await prisma.client.update({
-        where: { id: client.id },
-        data: {
-          fullName: validated.fullName,
-          preferredCommunicationMethod: validated.preferredCommunicationMethod,
-          isReturningPatient: validated.isReturningPatient,
-        },
-      });
+          is_returning_patient: validated.isReturningPatient,
+          preferred_communication_method: validated.preferredCommunicationMethod,
+        })
+        .select("id")
+        .single();
+
+      if (clientErr) throw new Error(clientErr.message);
+      clientId = newClient.id;
     }
 
-    // Generate unique human-readable reference number
-    let referenceNumber = generateReferenceNumber();
-    let existingRef = await prisma.appointmentRequest.findUnique({
-      where: { referenceNumber },
-    });
-    while (existingRef) {
-      referenceNumber = generateReferenceNumber();
-      existingRef = await prisma.appointmentRequest.findUnique({
-        where: { referenceNumber },
-      });
-    }
-
-    // Generate cancellation token for optional signed guest cancellation requests
+    const referenceNumber = generateReferenceNumber();
     const cancellationToken = crypto.randomBytes(24).toString("hex");
     const cancellationTokenExpiresAt = new Date();
-    cancellationTokenExpiresAt.setDate(cancellationTokenExpiresAt.getDate() + 30); // 30-day token
+    cancellationTokenExpiresAt.setDate(cancellationTokenExpiresAt.getDate() + 30);
 
-    // Save AppointmentRequest record with PENDING status inside transaction
-    const appointment = await prisma.$transaction(async (tx) => {
-      return await tx.appointmentRequest.create({
-        data: {
-          referenceNumber,
-          clientId: client.id,
-          serviceId: service.id,
-          preferredDentistId: validated.preferredDentistId || null,
-          locationId: location.id,
-          preferredDate: validated.preferredDate,
-          preferredTime: validated.preferredTime,
-          status: AppointmentStatus.PENDING,
-          source: BookingSource.WEBSITE,
-          clientMessage: validated.clientMessage || null,
-          cancellationToken,
-          cancellationTokenExpiresAt,
-        },
-      });
-    });
+    const { data: appt, error: apptErr } = await supabaseAdmin
+      .from("appointment_requests")
+      .insert({
+        reference_number: referenceNumber,
+        client_id: clientId,
+        service_id: serviceId,
+        preferred_dentist_id: validated.preferredDentistId || null,
+        location_id: "loc-kampala-main",
+        preferred_date: validated.preferredDate,
+        preferred_time: validated.preferredTime,
+        status: "PENDING",
+        source: "WEBSITE",
+        client_message: validated.clientMessage || null,
+        cancellation_token: cancellationToken,
+        cancellation_token_expires_at: cancellationTokenExpiresAt.toISOString(),
+      })
+      .select("id, reference_number, status")
+      .single();
 
-    // Record system notification for clinic staff
-    await prisma.notification.create({
-      data: {
-        clientId: client.id,
-        appointmentRequestId: appointment.id,
+    if (apptErr) throw new Error(apptErr.message);
+
+    try {
+      await supabaseAdmin.from("notifications").insert({
+        client_id: clientId,
+        appointment_request_id: appt.id,
         recipient: "admin@crestdentalsurgery.com",
-        channel: NotificationChannel.EMAIL,
+        channel: "EMAIL",
         type: "NEW_APPOINTMENT_REQUEST_ALERT",
         subject: `New Appointment Request: ${referenceNumber} (${validated.fullName})`,
-        body: `A new appointment request has been submitted for ${service.name} on ${validated.preferredDate} at ${validated.preferredTime}. Client Phone: ${validated.phone}. Status: PENDING review.`,
-      },
-    });
+        body: `A new appointment request has been submitted for ${serviceName} on ${validated.preferredDate} at ${validated.preferredTime}. Client Phone: ${validated.phone}. Status: PENDING review.`,
+      });
+    } catch {
+      // Non-blocking notification
+    }
 
     return NextResponse.json({
       success: true,
-      referenceNumber: appointment.referenceNumber,
-      status: appointment.status,
+      referenceNumber: appt.reference_number,
+      status: appt.status,
       cancellationToken,
       message:
         "Thank you. Your appointment request has been received. The Dr. Dental Crest Dental Surgery team will contact you shortly to confirm a convenient appointment time.",

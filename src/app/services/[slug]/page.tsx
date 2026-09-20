@@ -21,11 +21,11 @@ import {
   SECONDARY_CTA,
   PRIMARY_SERVICES,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getServiceBySlug } from "@/lib/admin-data";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const service = await prisma.service.findUnique({ where: { slug } });
+  const service = await getServiceBySlug(slug);
   if (!service) return { title: "Service Not Found" };
 
   return {
@@ -40,9 +40,7 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = await prisma.service.findUnique({
-    where: { slug },
-  });
+  const service = await getServiceBySlug(slug);
 
   if (!service) {
     notFound();

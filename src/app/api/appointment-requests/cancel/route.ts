@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabase";
 import { AppointmentStatus } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
@@ -13,9 +14,21 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const appointment = await prisma.appointmentRequest.findUnique({
-      where: { referenceNumber },
-    });
+    let appointment: { id: string } | null = null;
+    try {
+      appointment = await prisma.appointmentRequest.findUnique({
+        where: { referenceNumber },
+      });
+    } catch {
+      const { data } = await supabaseAdmin
+        .from("appointment_requests")
+        .select("id")
+        .eq("reference_number", referenceNumber)
+        .maybeSingle();
+      if (data) {
+        appointment = { id: data.id };
+      }
+    }
 
     if (!appointment) {
       return NextResponse.json(
@@ -24,13 +37,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    await prisma.appointmentRequest.update({
-      where: { id: appointment.id },
-      data: {
-        status: AppointmentStatus.CANCELLED,
-        cancellationReason: reason || "Cancelled by patient via guest cancellation portal",
-      },
-    });
+    const cancelReason = reason || "Cancelled by patient via guest cancellation portal";
+
+    try {
+      await prisma.appointmentRequest.update({
+        where: { id: appointment.id },
+        data: {
+          status: AppointmentStatus.CANCELLED,
+          cancellationReason: cancelReason,
+        },
+      });
+    } catch {
+      await supabaseAdmin
+        .from("appointment_requests")
+        .update({
+          status: "CANCELLED",
+          cancellation_reason: cancelReason,
+        })
+        .eq("id", appointment.id);
+    }
 
     return NextResponse.json({
       success: true,

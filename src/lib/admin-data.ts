@@ -206,6 +206,48 @@ export async function getServices() {
   return [];
 }
 
+export async function getServiceBySlug(slug: string) {
+  try {
+    const service = await prisma.service.findUnique({ where: { slug } });
+    if (service) return service;
+  } catch (err) {
+    console.warn("Prisma getServiceBySlug failed, querying Supabase client:", err);
+  }
+
+  try {
+    const { data: s, error } = await supabaseAdmin
+      .from("services")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (s && !error) {
+      return {
+        id: s.id,
+        name: s.name,
+        slug: s.slug,
+        category: s.category || "General",
+        shortDescription: s.short_description || "",
+        fullDescription: s.full_description || s.short_description || "",
+        benefits: s.benefits || "[]",
+        treatmentProcess: s.treatment_process || "[]",
+        faqContent: s.faq_content || "[]",
+        durationMinutes: s.duration_minutes || 45,
+        bufferMinutes: s.buffer_minutes || 15,
+        imageUrl: s.image_url || null,
+        imageAltText: s.image_alt_text || null,
+        isActive: s.is_active ?? true,
+        seoTitle: s.seo_title || `${s.name} | Dr. Dental Crest Dental Surgery`,
+        seoDescription: s.seo_description || s.short_description || "",
+      };
+    }
+  } catch (supaErr) {
+    console.warn("Supabase getServiceBySlug failed:", supaErr);
+  }
+
+  return null;
+}
+
 export async function getInquiries() {
   try {
     const inquiries = await prisma.contactInquiry.findMany({
@@ -344,6 +386,47 @@ export async function getBlogPosts() {
   }
 
   return [];
+}
+
+export async function getBlogPostBySlug(slug: string) {
+  try {
+    const post = await prisma.blogPost.findUnique({
+      where: { slug },
+      include: { category: true, author: true },
+    });
+    if (post) return post;
+  } catch (err) {
+    console.warn("Prisma getBlogPostBySlug failed, querying Supabase client:", err);
+  }
+
+  try {
+    const { data: b, error } = await supabaseAdmin
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (b && !error) {
+      return {
+        id: b.id,
+        title: b.title,
+        slug: b.slug,
+        excerpt: b.excerpt,
+        content: b.content,
+        status: b.status,
+        category: { name: "Dental Health" },
+        author: { firstName: "Editorial", lastName: "Team" },
+        publishedAt: b.published_at ? new Date(b.published_at) : null,
+        createdAt: new Date(b.created_at || Date.now()),
+        seoTitle: b.seo_title || b.title,
+        seoDescription: b.seo_description || b.excerpt,
+      };
+    }
+  } catch (supaErr) {
+    console.warn("Supabase getBlogPostBySlug failed:", supaErr);
+  }
+
+  return null;
 }
 
 export async function getNotifications() {
