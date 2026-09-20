@@ -1,11 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getServices } from "@/lib/admin-data";
 import Link from "next/link";
 import { Stethoscope, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 
 export default async function AdminServicesPage() {
-  const services = await prisma.service.findMany({
-    orderBy: { createdAt: "asc" },
-  });
+  const services = await getServices();
+
 
   return (
     <div className="space-y-6">

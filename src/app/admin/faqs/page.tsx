@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getFaqs } from "@/lib/admin-data";
 import { HelpCircle, CheckCircle2, Edit } from "lucide-react";
 
 export default async function AdminFaqsPage() {
-  const faqs = await prisma.faq.findMany({
-    orderBy: { displayOrder: "asc" },
-  });
+  const faqs = await getFaqs();
+
 
   return (
     <div className="space-y-6">

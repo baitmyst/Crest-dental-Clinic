@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getInquiries } from "@/lib/admin-data";
 import { MessageSquare, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
 
 export default async function AdminInquiriesPage() {
-  const inquiries = await prisma.contactInquiry.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const inquiries = await getInquiries();
+
 
   return (
     <div className="space-y-6">

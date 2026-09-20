@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getMedia } from "@/lib/admin-data";
 import { Image as ImageIcon, Upload, FileText, CheckCircle2 } from "lucide-react";
 
 export default async function AdminMediaPage() {
-  const media = await prisma.mediaAsset.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const media = await getMedia();
+
 
   return (
     <div className="space-y-6">

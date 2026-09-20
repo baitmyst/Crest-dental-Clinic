@@ -1,23 +1,61 @@
 import { prisma } from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabase";
 import { BarChart3, TrendingUp, Users, CalendarDays, CheckCircle2 } from "lucide-react";
 
 export default async function AdminReportsPage() {
-  const [totalAppointments, confirmedCount, completedCount, pendingCount, cancelledCount] =
-    await Promise.all([
+  let totalAppointments = 0;
+  let confirmedCount = 0;
+  let completedCount = 0;
+  let pendingCount = 0;
+  let cancelledCount = 0;
+  let services: any[] = [];
+
+  try {
+    const [t, conf, comp, pend, canc] = await Promise.all([
       prisma.appointmentRequest.count(),
       prisma.appointmentRequest.count({ where: { status: "CONFIRMED" } }),
       prisma.appointmentRequest.count({ where: { status: "COMPLETED" } }),
       prisma.appointmentRequest.count({ where: { status: "PENDING" } }),
       prisma.appointmentRequest.count({ where: { status: "CANCELLED" } }),
     ]);
+    totalAppointments = t;
+    confirmedCount = conf;
+    completedCount = comp;
+    pendingCount = pend;
+    cancelledCount = canc;
 
-  const services = await prisma.service.findMany({
-    include: {
-      _count: {
-        select: { appointments: true },
+    services = await prisma.service.findMany({
+      include: {
+        _count: {
+          select: { appointments: true },
+        },
       },
-    },
-  });
+    });
+  } catch (err) {
+    console.warn("Prisma reports failed, fetching from Supabase:", err);
+    try {
+      const [tRes, cRes, compRes, pRes, cancRes, sRes] = await Promise.all([
+        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }),
+        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CONFIRMED"),
+        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "COMPLETED"),
+        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
+        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CANCELLED"),
+        supabaseAdmin.from("services").select("*"),
+      ]);
+      totalAppointments = tRes.count || 0;
+      confirmedCount = cRes.count || 0;
+      completedCount = compRes.count || 0;
+      pendingCount = pRes.count || 0;
+      cancelledCount = cancRes.count || 0;
+      services = (sRes.data || []).map((s: any) => ({
+        id: s.id,
+        name: s.name,
+        category: s.category,
+        _count: { appointments: 0 },
+      }));
+    } catch {}
+  }
+
 
   return (
     <div className="space-y-6">

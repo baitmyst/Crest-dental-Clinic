@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getStaffUsers } from "@/lib/admin-data";
 import { UserCheck, ShieldAlert, Key, Mail, Phone } from "lucide-react";
 
 export default async function AdminStaffPage() {
-  const staffUsers = await prisma.user.findMany({
-    orderBy: { role: "asc" },
-  });
+  const staffUsers = await getStaffUsers();
+
 
   return (
     <div className="space-y-6">

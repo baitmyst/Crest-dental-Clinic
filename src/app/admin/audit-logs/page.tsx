@@ -1,12 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getAuditLogs } from "@/lib/admin-data";
 import { ScrollText, ShieldCheck, User } from "lucide-react";
 
 export default async function AdminAuditLogsPage() {
-  const logs = await prisma.auditLog.findMany({
-    include: { actor: true },
-    orderBy: { createdAt: "desc" },
-    take: 30,
-  });
+  const logs = await getAuditLogs();
+
 
   return (
     <div className="space-y-6">

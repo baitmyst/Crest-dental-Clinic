@@ -1,10 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getTestimonials } from "@/lib/admin-data";
 import { Star, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export default async function AdminTestimonialsPage() {
-  const testimonials = await prisma.testimonial.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const testimonials = await getTestimonials();
+
 
   return (
     <div className="space-y-6">

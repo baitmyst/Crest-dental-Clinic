@@ -1,12 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getBlogPosts } from "@/lib/admin-data";
 import Link from "next/link";
 import { BookOpen, Edit, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default async function AdminBlogPage() {
-  const posts = await prisma.blogPost.findMany({
-    include: { category: true, author: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const posts = await getBlogPosts();
+
 
   return (
     <div className="space-y-6">

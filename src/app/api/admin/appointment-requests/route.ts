@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { requireStaff } from "@/lib/auth";
+import { getAppointments } from "@/lib/admin-data";
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,25 +10,10 @@ export async function GET(req: NextRequest) {
 
     // Strict dentist isolation: Dentists only view their assigned appointments
     if (session.role === "DENTIST") {
-      const dentistProfile = await prisma.dentistProfile.findUnique({
-        where: { userId: session.userId },
-      });
-      if (dentistProfile) {
-        whereClause.assignedDentistId = dentistProfile.id;
-      }
+      whereClause.assignedDentistId = session.userId;
     }
 
-    const appointments = await prisma.appointmentRequest.findMany({
-      where: whereClause,
-      include: {
-        client: true,
-        service: true,
-        assignedDentist: {
-          include: { user: true },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    const appointments = await getAppointments(whereClause);
 
     return NextResponse.json({ appointments });
   } catch (error: any) {

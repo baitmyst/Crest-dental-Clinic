@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { getAppointments } from "@/lib/admin-data";
 import { getStaffSession } from "@/lib/auth";
 import { CalendarRange, Clock, User, CheckCircle2 } from "lucide-react";
 
@@ -7,20 +7,14 @@ export default async function AdminCalendarPage() {
 
   let whereClause: any = {};
   if (session?.role === "DENTIST") {
-    const dentist = await prisma.dentistProfile.findUnique({
-      where: { userId: session.userId },
-    });
-    if (dentist) whereClause.assignedDentistId = dentist.id;
+    whereClause.assignedDentistId = session.userId;
   }
 
-  const appointments = await prisma.appointmentRequest.findMany({
-    where: whereClause,
-    include: { client: true, service: true },
-    orderBy: [{ preferredDate: "asc" }, { preferredTime: "asc" }],
-  });
+  const appointments = await getAppointments(whereClause);
+
 
   // Group by date
-  const grouped: Record<string, typeof appointments> = {};
+  const grouped: Record<string, any[]> = {};
   for (const apt of appointments) {
     if (!grouped[apt.preferredDate]) {
       grouped[apt.preferredDate] = [];

@@ -1,11 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getNotifications } from "@/lib/admin-data";
 import { Bell, Mail, MessageSquare, CheckCircle2 } from "lucide-react";
 
 export default async function AdminNotificationsPage() {
-  const notifications = await prisma.notification.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 20,
-  });
+  const notifications = await getNotifications();
+
 
   return (
     <div className="space-y-6">

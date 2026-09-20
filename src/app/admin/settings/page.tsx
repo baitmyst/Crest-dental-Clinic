@@ -1,11 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getSiteSettings } from "@/lib/admin-data";
 import { Settings, ShieldCheck, Phone, MapPin, Globe } from "lucide-react";
 import { CLINIC_NAME, CLINIC_CITY, CLINIC_PHONE } from "@/lib/constants";
 
 export default async function AdminSettingsPage() {
-  const settings = await prisma.siteSettings.findUnique({
-    where: { id: "default" },
-  });
+  const settings = await getSiteSettings();
+
 
   return (
     <div className="space-y-6">

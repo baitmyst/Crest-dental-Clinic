@@ -1,16 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { getClients } from "@/lib/admin-data";
 import { Users, Phone, Mail, Calendar, Clock, CheckCircle2 } from "lucide-react";
 
 export default async function AdminClientsPage() {
-  const clients = await prisma.client.findMany({
-    include: {
-      appointments: {
-        include: { service: true },
-        orderBy: { createdAt: "desc" },
-      },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const clients = await getClients();
+
 
   return (
     <div className="space-y-6">

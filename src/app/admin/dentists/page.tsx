@@ -1,16 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { getDentists } from "@/lib/admin-data";
 import { UserCog, CheckCircle2, ShieldCheck, Stethoscope } from "lucide-react";
 import { LEAD_SPECIALIST } from "@/lib/constants";
 
 export default async function AdminDentistsPage() {
-  const dentists = await prisma.dentistProfile.findMany({
-    include: {
-      user: true,
-      services: {
-        include: { service: true },
-      },
-    },
-  });
+  const dentists = await getDentists();
+
 
   return (
     <div className="space-y-6">
@@ -79,7 +73,7 @@ export default async function AdminDentistsPage() {
                 Assigned Dental Services:
               </h4>
               <div className="flex flex-wrap gap-2">
-                {dentist.services.map((ds) => (
+                {dentist.services.map((ds: any) => (
                   <span
                     key={ds.serviceId}
                     className="px-3 py-1 bg-white border border-[#dddddd] rounded-md text-[12px] text-[#181d26]"
