@@ -394,9 +394,9 @@ INSERT INTO "working_hours" ("id", "location_id", "day_of_week", "start_time", "
 -- Receptionist: ReceptPass2026!
 -- Dr. Silver: SilverDentist2026!
 INSERT INTO "users" ("id", "first_name", "last_name", "email", "phone", "password_hash", "role", "is_active", "email_verified_at") VALUES
-('user-admin-01', 'Clinic', 'Administrator', 'admin@crestdentalsurgery.com', '+256 773 003214', '$2a$10$f3F8gC.q/Jp1Q4yE769D7O7z5UqHlA98yVfNn9L8yWvO0Y.K.72uO', 'ADMIN', true, NOW()),
-('user-recept-01', 'Front', 'Desk', 'receptionist@crestdentalsurgery.com', '+256 773 003214', '$2a$10$F3e8p5m9K2gH4w1L8yJ9rOhzN2Q.E64s.Z7p1Q0Y.K.72uOBc91la', 'RECEPTIONIST', true, NOW()),
-('user-silver-01', 'Dr.', 'Silver', 'dr.silver@crestdentalsurgery.com', '+256 773 003214', '$2a$10$oYh8q9J4K2gH4w1L8yJ9rOhzN2Q.E64s.Z7p1Q0Y.K.72uOBc91la', 'DENTIST', true, NOW());
+('user-admin-01', 'Clinic', 'Administrator', 'admin@crestdentalsurgery.com', '+256 773 003214', '$2b$10$QPjCYgH3bP2aJt/eM8nxAupyvhgH3OCIhN0VU6VJDyBYIBXrDl1Wm', 'ADMIN', true, NOW()),
+('user-recept-01', 'Front', 'Desk', 'receptionist@crestdentalsurgery.com', '+256 773 003214', '$2b$10$RcfJwH2Jf5xB3SZ8/VDyHeKY6LxLP6ileEkXKrhrWnDVzcu4kBX2i', 'RECEPTIONIST', true, NOW()),
+('user-silver-01', 'Dr.', 'Silver', 'dr.silver@crestdentalsurgery.com', '+256 773 003214', '$2b$10$xf4XTAzwqiLbdKAbcfQSm.qBb8WYygBim7lnO7jzGU6AdrC55YC/G', 'DENTIST', true, NOW());
 
 -- Dr. Silver Profile
 INSERT INTO "dentist_profiles" ("id", "user_id", "professional_title", "specialties", "qualifications", "biography", "languages", "years_experience", "display_order", "is_bookable")
