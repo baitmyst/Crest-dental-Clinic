@@ -240,3 +240,36 @@ BEGIN
     ALTER PUBLICATION supabase_realtime ADD TABLE appointment_requests;
   END IF;
 END $$;
+
+-- 11. DEFAULT CLINIC LOCATION & WORKING HOURS SEED
+INSERT INTO "clinic_locations" ("id", "name", "address", "phone", "email", "timezone", "is_active")
+VALUES (
+  'loc-kampala-main',
+  'Dr. Dental Crest Dental Surgery',
+  'Kampala, Uganda',
+  '+256 773 003214',
+  'info@crestdentalsurgery.com',
+  'Africa/Kampala',
+  true
+)
+ON CONFLICT ("id") DO UPDATE SET
+  "name" = EXCLUDED."name",
+  "phone" = EXCLUDED."phone",
+  "is_active" = true;
+
+-- Seed Monday to Saturday: 08:00 to 20:00, Sunday: 09:00 to 17:00
+INSERT INTO "working_hours" ("id", "location_id", "day_of_week", "start_time", "end_time", "is_available", "is_verified")
+VALUES
+  ('wh-0', 'loc-kampala-main', 0, '09:00', '17:00', true, true), -- Sunday
+  ('wh-1', 'loc-kampala-main', 1, '08:00', '20:00', true, true), -- Monday
+  ('wh-2', 'loc-kampala-main', 2, '08:00', '20:00', true, true), -- Tuesday
+  ('wh-3', 'loc-kampala-main', 3, '08:00', '20:00', true, true), -- Wednesday
+  ('wh-4', 'loc-kampala-main', 4, '08:00', '20:00', true, true), -- Thursday
+  ('wh-5', 'loc-kampala-main', 5, '08:00', '20:00', true, true), -- Friday (Normal Working Day)
+  ('wh-6', 'loc-kampala-main', 6, '08:00', '20:00', true, true)  -- Saturday
+ON CONFLICT ("id") DO UPDATE SET
+  "start_time" = EXCLUDED."start_time",
+  "end_time" = EXCLUDED."end_time",
+  "is_available" = EXCLUDED."is_available",
+  "is_verified" = EXCLUDED."is_verified",
+  "updated_at" = NOW();
