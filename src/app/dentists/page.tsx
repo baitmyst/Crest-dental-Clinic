@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, Phone, ArrowRight, ShieldCheck, CheckCircle2, User } from "lucide-react";
 import {
   CLINIC_NAME,
@@ -52,8 +53,13 @@ export default async function DentistsPage() {
           <div className="bg-white rounded-xl border border-[#dddddd] p-8 lg:p-12 shadow-sm max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
               <div className="md:col-span-4 flex justify-center">
-                <div className="w-36 h-36 rounded-full bg-[#181d26] text-white flex items-center justify-center text-4xl font-medium">
-                  DS
+                <div className="relative w-40 h-40 rounded-2xl overflow-hidden shadow-lg border-2 border-white ring-1 ring-[#e2e8f0]">
+                  <Image
+                    src="/images/dr-silver-portrait.jpg"
+                    alt={`${LEAD_SPECIALIST} - Lead Dental Specialist`}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
 

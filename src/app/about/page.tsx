@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ShieldCheck,
   HeartHandshake,
@@ -143,8 +144,13 @@ export default function AboutPage() {
               </div>
 
               <div className="lg:col-span-4 flex justify-center">
-                <div className="w-40 h-40 rounded-full border-4 border-white/20 bg-white/10 flex items-center justify-center text-4xl font-medium text-white">
-                  DS
+                <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden shadow-2xl border-4 border-white/30 ring-1 ring-white/10">
+                  <Image
+                    src="/images/dr-silver-portrait.jpg"
+                    alt={`${LEAD_SPECIALIST} - Lead Dental Specialist`}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Calendar,
   Phone,
@@ -43,8 +44,14 @@ export default async function DrSilverProfilePage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-4 flex justify-center">
-              <div className="w-48 h-48 rounded-full bg-[#181d26] text-white flex items-center justify-center text-5xl font-medium shadow-md">
-                DS
+              <div className="relative w-52 h-52 sm:w-60 sm:h-60 rounded-2xl overflow-hidden shadow-xl border-4 border-white ring-1 ring-[#e2e8f0]">
+                <Image
+                  src="/images/dr-silver-portrait.jpg"
+                  alt={`${LEAD_SPECIALIST} - Lead Dental Specialist at ${CLINIC_NAME}`}
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 
