@@ -1,21 +1,30 @@
+import Link from "next/link";
 import { getClients } from "@/lib/admin-data";
-import { Users, Phone, Mail, Calendar, Clock, CheckCircle2 } from "lucide-react";
+import { Users, Phone, Mail, Calendar, Clock, CheckCircle2, UserPlus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminClientsPage() {
   const clients = await getClients();
 
-
   return (
     <div className="space-y-6">
-      <div className="pb-4 border-b border-[#dddddd]">
-        <h1 className="text-[24px] font-medium text-[#181d26]">
-          Internal Patient Directory (CRM)
-        </h1>
-        <p className="text-[13px] text-[#41454d]">
-          Internal clinic client records created from guest booking submissions. Patients do not have online accounts.
-        </p>
+      <div className="pb-4 border-b border-[#dddddd] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-[24px] font-medium text-[#181d26]">
+            Internal Patient Directory (CRM)
+          </h1>
+          <p className="text-[13px] text-[#41454d]">
+            Internal clinic client records created from bookings and walk-in arrivals.
+          </p>
+        </div>
+        <Link
+          href="/admin/walk-ins"
+          className="px-4 py-2 rounded-lg bg-[#08c068] hover:bg-[#06a85a] text-white text-[13px] font-medium inline-flex items-center gap-2 transition-colors shrink-0 shadow-sm"
+        >
+          <UserPlus className="w-4 h-4" />
+          Register Walk-in Patient
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

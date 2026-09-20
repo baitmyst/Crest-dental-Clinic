@@ -21,6 +21,7 @@ import {
   LogOut,
   ChevronRight,
   ShieldCheck,
+  UserPlus,
 } from "lucide-react";
 import { getStaffSession } from "@/services/auth";
 import { CLINIC_NAME } from "@/lib/constants";
@@ -48,6 +49,7 @@ export default async function AdminLayout({
   const navItems = [
     { name: "Overview", href: "/admin", icon: LayoutDashboard },
     { name: "Appointment Requests", href: "/admin/appointments", icon: CalendarDays },
+    { name: "Walk-in Patients", href: "/admin/walk-ins", icon: UserPlus },
     { name: "Calendar", href: "/admin/calendar", icon: CalendarRange },
     { name: "Clients CRM", href: "/admin/clients", icon: Users },
     { name: "Dentists", href: "/admin/dentists", icon: UserCog },

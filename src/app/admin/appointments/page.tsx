@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Search,
   Filter,
@@ -16,6 +17,7 @@ import {
   ChevronDown,
   RefreshCw,
   Sparkles,
+  UserPlus,
 } from "lucide-react";
 import { supabase } from "@/services/supabase";
 
@@ -195,14 +197,23 @@ export default function AdminAppointmentsPage() {
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={fetchAppointments}
-          className="btn-secondary text-[13px] py-1.5 px-3 self-start sm:self-auto"
-        >
-          <RefreshCw className="w-3.5 h-3.5 text-[#08c068]" />
-          <span>Refresh</span>
-        </button>
+        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+          <Link
+            href="/admin/walk-ins"
+            className="px-3.5 py-1.5 rounded-lg bg-[#08c068] hover:bg-[#06a85a] text-white text-[13px] font-medium inline-flex items-center gap-1.5 shadow-sm transition-colors"
+          >
+            <UserPlus className="w-3.5 h-3.5" />
+            <span>Walk-in Patient</span>
+          </Link>
+          <button
+            type="button"
+            onClick={fetchAppointments}
+            className="btn-secondary text-[13px] py-1.5 px-3"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-[#08c068]" />
+            <span>Refresh</span>
+          </button>
+        </div>
       </div>
 
       {/* Search & Filter Bar */}
