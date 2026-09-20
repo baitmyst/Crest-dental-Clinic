@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
   Calendar,
   Phone,
@@ -87,12 +88,13 @@ export default async function HomePage() {
 
               {/* CTA Row */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
-                <Link href="/request-appointment" className="btn-primary">
-                  <Calendar className="w-4 h-4" />
+                <Link href="/request-appointment" className="btn-primary group">
+                  <Calendar className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                   <span>{PRIMARY_CTA}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
-                <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                  <Phone className="w-4 h-4 text-[#0a2e0e]" />
+                <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary group">
+                  <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
                   <span>{SECONDARY_CTA}</span>
                 </a>
               </div>
@@ -179,8 +181,8 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
                 <Smile className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -191,8 +193,8 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -203,8 +205,8 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -215,8 +217,8 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
                 <Users className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -227,8 +229,8 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+            <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
                 <Clock className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -270,7 +272,7 @@ export default async function HomePage() {
             {PRIMARY_SERVICES.map((s, idx) => (
               <div
                 key={s.slug}
-                className="group bg-white rounded-xl border border-[#dddddd] hover:border-gray-400 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md"
+                className="group bg-white rounded-xl border border-[#dddddd] flex flex-col justify-between overflow-hidden shadow-sm card-interactive"
               >
                 {/* Service Photo */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
@@ -279,7 +281,7 @@ export default async function HomePage() {
                     alt={s.imageAlt || s.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-[#0a2e0e] border border-white/60">
                     Category 0{idx + 1}
@@ -288,7 +290,7 @@ export default async function HomePage() {
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors">
+                    <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors duration-200">
                       {s.name}
                     </h3>
                     <p className="text-[14px] text-[#41454d] leading-relaxed line-clamp-3">
@@ -299,14 +301,14 @@ export default async function HomePage() {
                   <div className="pt-4 border-t border-[#dddddd] flex items-center justify-between text-[14px]">
                     <Link
                       href={`/services/${s.slug}`}
-                      className="font-medium text-[#1b61c9] hover:text-[#1a3866] flex items-center gap-1"
+                      className="font-medium text-[#1b61c9] hover:text-[#1a3866] flex items-center gap-1 group/link transition-colors duration-200"
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" />
                     </Link>
                     <Link
                       href={`/request-appointment?service=${s.slug}`}
-                      className="font-medium text-[#181d26] hover:text-[#0a2e0e]"
+                      className="font-medium text-[#181d26] hover:text-[#0a2e0e] transition-colors duration-200"
                     >
                       Request Visit
                     </Link>
@@ -355,9 +357,14 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Lead specialist card */}
             <div className="lg:col-span-5">
-              <div className="bg-[#f8fafc] border border-[#dddddd] rounded-xl p-8 text-center space-y-5">
-                <div className="w-24 h-24 mx-auto rounded-full bg-[#181d26] text-white flex items-center justify-center font-medium text-2xl">
-                  DS
+              <div className="bg-[#f8fafc] border border-[#dddddd] rounded-xl p-8 text-center space-y-5 card-interactive">
+                <div className="relative w-28 h-28 mx-auto rounded-2xl overflow-hidden shadow-md border-2 border-white ring-1 ring-[#e2e8f0]">
+                  <Image
+                    src="/images/dr-silver-portrait.jpg"
+                    alt={`${LEAD_SPECIALIST} - Lead Dental Specialist`}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-[22px] font-medium text-[#181d26]">
@@ -402,12 +409,14 @@ export default async function HomePage() {
                 Our approach emphasizes patient communication, clear clinical explanations, and a gentle touch for adults and children throughout Kampala.
               </p>
               <div className="pt-2 flex flex-wrap gap-4">
-                <Link href="/request-appointment" className="btn-primary">
-                  <Calendar className="w-4 h-4" />
+                <Link href="/request-appointment" className="btn-primary group">
+                  <Calendar className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                   <span>Request an Appointment with {LEAD_SPECIALIST}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
-                <Link href="/dentists" className="btn-secondary">
+                <Link href="/dentists" className="btn-secondary group">
                   <span>View Dental Profile</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
@@ -431,12 +440,13 @@ export default async function HomePage() {
               </p>
             </div>
             <div className="shrink-0 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-              <Link href="/request-appointment" className="btn-primary justify-center">
-                <Calendar className="w-4 h-4" />
+              <Link href="/request-appointment" className="btn-primary justify-center group">
+                <Calendar className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                 <span>{PRIMARY_CTA}</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
-              <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary justify-center">
-                <Phone className="w-4 h-4 text-[#0a2e0e]" />
+              <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary justify-center group">
+                <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
                 <span>Call {CLINIC_PHONE}</span>
               </a>
             </div>
@@ -459,27 +469,8 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.length > 0 ? (
-              faqs.map((faq) => (
-                <div
-                  key={faq.id}
-                  className="bg-white rounded-lg border border-[#dddddd] p-5 space-y-2 shadow-sm"
-                >
-                  <h3 className="text-[16px] font-medium text-[#181d26] flex items-center gap-2">
-                    <HelpCircle className="w-4 h-4 text-[#0a2e0e] shrink-0" />
-                    <span>{faq.question}</span>
-                  </h3>
-                  <p className="text-[14px] text-[#41454d] leading-relaxed pl-6">
-                    {faq.answer}
-                  </p>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-6 text-gray-500">
-                FAQs available upon clinic publication.
-              </div>
-            )}
+          <div className="max-w-3xl mx-auto">
+            <FaqAccordion faqs={faqs} defaultOpenIndex={0} />
           </div>
 
           <div className="text-center mt-10">
@@ -521,15 +512,16 @@ export default async function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row lg:justify-end gap-4">
-                <Link href="/request-appointment" className="btn-secondary-on-dark justify-center">
-                  <Calendar className="w-4 h-4" />
+                <Link href="/request-appointment" className="btn-secondary-on-dark justify-center group">
+                  <Calendar className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                   <span>{PRIMARY_CTA}</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
                 <a
                   href={`tel:${CLINIC_PHONE_DIGITS}`}
-                  className="inline-flex items-center justify-center px-6 py-3.5 rounded-lg border border-white/40 text-white font-medium hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg border border-white/40 text-white font-medium hover:bg-white/10 hover:border-white/70 transition-all duration-200 group"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                   <span>Call Our Clinic</span>
                 </a>
               </div>

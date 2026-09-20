@@ -73,19 +73,19 @@ export default async function ServicesPage() {
               return (
                 <div
                   key={service.slug}
-                  className="bg-white rounded-xl border border-[#dddddd] p-8 lg:p-10 shadow-sm"
+                  className="bg-white rounded-xl border border-[#dddddd] p-8 lg:p-10 shadow-sm card-interactive group"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     <div className="lg:col-span-7 space-y-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+                        <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-105">
                           <ShieldCheck className="w-5 h-5" />
                         </div>
                         <span className="text-[13px] font-semibold text-[#0a2e0e] tracking-wider uppercase">
                           Service Category 0{idx + 1}
                         </span>
                       </div>
-                      <h2 className="text-[24px] sm:text-[28px] font-medium text-[#181d26]">
+                      <h2 className="text-[24px] sm:text-[28px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors duration-200">
                         {service.name}
                       </h2>
                       <p className="text-[15px] text-[#41454d] leading-relaxed">
@@ -112,7 +112,7 @@ export default async function ServicesPage() {
                           alt={service.imageAlt || service.name}
                           fill
                           sizes="(max-width: 1024px) 100vw, 40vw"
-                          className="object-cover transition-transform duration-500 hover:scale-105"
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                         />
                       </div>
 
@@ -128,16 +128,16 @@ export default async function ServicesPage() {
                       <div className="space-y-2.5 pt-2">
                         <Link
                           href={`/services/${service.slug}`}
-                          className="btn-primary w-full justify-center text-[14px] py-2.5"
+                          className="btn-primary w-full justify-center text-[14px] py-2.5 group/btn"
                         >
                           <span>Explore Treatment Details</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
                         </Link>
                         <Link
                           href={`/request-appointment?service=${service.slug}`}
-                          className="btn-secondary w-full justify-center text-[14px] py-2.5"
+                          className="btn-secondary w-full justify-center text-[14px] py-2.5 group/btn"
                         >
-                          <Calendar className="w-4 h-4" />
+                          <Calendar className="w-4 h-4 transition-transform duration-200 group-hover/btn:scale-110" />
                           <span>Request an Appointment</span>
                         </Link>
                       </div>

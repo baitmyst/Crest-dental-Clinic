@@ -18,6 +18,7 @@ import {
   HeartPulse,
   Users,
   HelpCircle,
+  Loader2,
 } from "lucide-react";
 import {
   CLINIC_NAME,
@@ -504,7 +505,7 @@ export default function RequestAppointmentPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Grace Nabakooza"
-                  className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                  className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                   required
                 />
               </div>
@@ -519,7 +520,7 @@ export default function RequestAppointmentPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+256 700 000000"
-                    className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                    className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                     required
                   />
                 </div>
@@ -533,7 +534,7 @@ export default function RequestAppointmentPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="grace@example.com"
-                    className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                    className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                     required
                   />
                 </div>
@@ -600,7 +601,7 @@ export default function RequestAppointmentPage() {
                   onChange={(e) => setClientMessage(e.target.value)}
                   rows={3}
                   placeholder="Tell us if you have any dental discomfort, specific tooth concerns, or consultation goals..."
-                  className="w-full p-3 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                  className="w-full p-3 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                 ></textarea>
               </div>
 
@@ -721,14 +722,18 @@ export default function RequestAppointmentPage() {
                 type="button"
                 disabled={isSubmitting}
                 onClick={handleSubmit}
-                className="btn-primary"
+                className="btn-primary group"
               >
                 {isSubmitting ? (
-                  <span>Submitting Request...</span>
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Submitting Request...</span>
+                  </>
                 ) : (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 transition-transform duration-200 group-hover:scale-110" />
                     <span>Confirm & Submit Request</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </>
                 )}
               </button>

@@ -12,6 +12,7 @@ import {
   AlertCircle,
   ArrowRight,
   ShieldCheck,
+  Loader2,
 } from "lucide-react";
 import {
   CLINIC_NAME,
@@ -197,7 +198,7 @@ export default function ContactPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Arthur Kato"
-                      className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                      className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                       required
                     />
                   </div>
@@ -212,7 +213,7 @@ export default function ContactPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+256 700 000000"
-                        className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                        className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                         required
                       />
                     </div>
@@ -226,7 +227,7 @@ export default function ContactPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="arthur@example.com"
-                        className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                        className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                         required
                       />
                     </div>
@@ -241,7 +242,7 @@ export default function ContactPage() {
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder="e.g. Directions or Treatment Inquiry"
-                      className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                      className="w-full h-11 px-4 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                       required
                     />
                   </div>
@@ -255,7 +256,7 @@ export default function ContactPage() {
                       onChange={(e) => setMessage(e.target.value)}
                       rows={4}
                       placeholder="How can our clinic help you?"
-                      className="w-full p-3 border border-[#dddddd] rounded-md text-[14px] focus:outline-none focus:border-[#181d26]"
+                      className="w-full p-3 border border-[#dddddd] rounded-md text-[14px] form-input-interactive focus:outline-none"
                       required
                     ></textarea>
                   </div>
@@ -279,9 +280,19 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn-primary w-full sm:w-auto"
+                      className="btn-primary w-full sm:w-auto group"
                     >
-                      {isSubmitting ? "Sending..." : "Send Message"}
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Sending message...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>

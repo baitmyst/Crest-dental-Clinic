@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HelpCircle, Calendar, Phone, ArrowRight } from "lucide-react";
+import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
   CLINIC_NAME,
   CLINIC_PHONE,
@@ -48,22 +49,7 @@ export default async function FaqPage() {
       {/* FAQs List */}
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 max-w-3xl">
-          <div className="space-y-4">
-            {faqs.map((faq) => (
-              <div
-                key={faq.id}
-                className="bg-white rounded-xl border border-[#dddddd] p-6 space-y-2.5 shadow-sm"
-              >
-                <h3 className="text-[17px] font-medium text-[#181d26] flex items-center gap-2.5">
-                  <HelpCircle className="w-5 h-5 text-[#0a2e0e] shrink-0" />
-                  <span>{faq.question}</span>
-                </h3>
-                <p className="text-[14px] text-[#41454d] leading-relaxed pl-7">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion faqs={faqs} defaultOpenIndex={0} />
         </div>
       </section>
 
@@ -77,12 +63,13 @@ export default async function FaqPage() {
             Our clinic staff is ready to help you with directions, consultations, or scheduling inquiries.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/request-appointment" className="btn-primary">
-              <Calendar className="w-4 h-4" />
+            <Link href="/request-appointment" className="btn-primary group">
+              <Calendar className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
               <span>{PRIMARY_CTA}</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
-            <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-              <Phone className="w-4 h-4 text-[#0a2e0e]" />
+            <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary group">
+              <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
               <span>{SECONDARY_CTA}</span>
             </a>
           </div>
