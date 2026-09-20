@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { supabaseAdmin } from "@/lib/supabase";
 
 export interface SafeAuditLog {
@@ -487,7 +487,7 @@ export async function getSiteSettings() {
         id: data.id,
         clinicName: data.clinic_name || "Dr. Dental Crest Dental Surgery",
         primaryColor: data.primary_color || "#08c068",
-        secondaryColor: data.secondary_color || "#0a2e0e",
+        secondaryColor: data.secondary_color || "#08c068",
         accentColor: data.accent_color || "#aa2d00",
         contactPhone: data.contact_phone || "+256 773 003214",
         contactEmail: data.contact_email || null,
@@ -508,7 +508,7 @@ export async function getSiteSettings() {
     id: "default",
     clinicName: "Dr. Dental Crest Dental Surgery",
     primaryColor: "#08c068",
-    secondaryColor: "#0a2e0e",
+    secondaryColor: "#08c068",
     accentColor: "#aa2d00",
     contactPhone: "+256 773 003214",
     contactEmail: null,

@@ -57,7 +57,7 @@ export default async function DrSilverProfilePage() {
 
             <div className="lg:col-span-8 space-y-5">
               <div>
-                <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+                <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
                   Lead Dental Specialist
                 </span>
                 <h1 className="text-[36px] sm:text-[42px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -97,7 +97,7 @@ export default async function DrSilverProfilePage() {
                   <span>Request an Appointment with {LEAD_SPECIALIST}</span>
                 </Link>
                 <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                  <Phone className="w-4 h-4 text-[#0a2e0e]" />
+                  <Phone className="w-4 h-4 text-[#08c068]" />
                   <span>Call {CLINIC_PHONE}</span>
                 </a>
               </div>
@@ -110,7 +110,7 @@ export default async function DrSilverProfilePage() {
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-10">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Areas of Dental Practice
             </span>
             <h2 className="text-[30px] font-normal text-[#181d26] tracking-tight mt-1">
@@ -141,7 +141,7 @@ export default async function DrSilverProfilePage() {
                   </Link>
                   <Link
                     href={`/request-appointment?service=${s.slug}&dentist=dr-silver`}
-                    className="font-medium text-[#181d26] hover:text-[#0a2e0e]"
+                    className="font-medium text-[#181d26] hover:text-[#08c068]"
                   >
                     Book with Dr. Silver
                   </Link>
@@ -155,11 +155,11 @@ export default async function DrSilverProfilePage() {
       {/* Signature Forest CTA */}
       <section className="section-rhythm bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#0a2e0e] text-white rounded-xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-6">
-            <h2 className="text-[30px] font-normal leading-tight">
+          <div className="bg-[#08c068] text-white rounded-xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-6 shadow-lg">
+            <h2 className="text-[30px] font-normal leading-tight text-white">
               Begin Your Smile Journey
             </h2>
-            <p className="text-[16px] text-gray-200">
+            <p className="text-[16px] text-white/95">
               Submit your appointment request online without account registration. Our clinic team will call you to confirm your consultation time.
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">

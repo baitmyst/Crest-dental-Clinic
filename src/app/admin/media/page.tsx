@@ -1,4 +1,4 @@
-import { getMedia } from "@/lib/admin-data";
+﻿import { getMedia } from "@/lib/admin-data";
 import { Image as ImageIcon, Upload, FileText, CheckCircle2 } from "lucide-react";
 
 export default async function AdminMediaPage() {
@@ -32,7 +32,7 @@ export default async function AdminMediaPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white rounded-xl border border-dashed border-[#dddddd] p-8 text-center flex flex-col items-center justify-center space-y-3">
-          <div className="w-12 h-12 rounded-full bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+          <div className="w-12 h-12 rounded-full bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
             <Upload className="w-5 h-5" />
           </div>
           <div className="space-y-1">

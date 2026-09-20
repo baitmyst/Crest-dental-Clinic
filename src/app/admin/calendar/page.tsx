@@ -1,4 +1,4 @@
-import { getAppointments } from "@/lib/admin-data";
+﻿import { getAppointments } from "@/lib/admin-data";
 import { getStaffSession } from "@/lib/auth";
 import { CalendarRange, Clock, User, CheckCircle2 } from "lucide-react";
 
@@ -44,7 +44,7 @@ export default async function AdminCalendarPage() {
           {sortedDates.map((date) => (
             <div key={date} className="bg-white rounded-xl border border-[#dddddd] p-6 shadow-sm space-y-4">
               <div className="flex items-center gap-2 text-[16px] font-semibold text-[#181d26] border-b border-[#dddddd] pb-3">
-                <CalendarRange className="w-5 h-5 text-[#0a2e0e]" />
+                <CalendarRange className="w-5 h-5 text-[#08c068]" />
                 <span>Date: {date}</span>
                 <span className="text-[12px] font-normal text-[#41454d] bg-[#f8fafc] px-2 py-0.5 rounded border border-[#dddddd]">
                   {grouped[date].length} consultation{grouped[date].length > 1 ? "s" : ""}
@@ -83,7 +83,7 @@ export default async function AdminCalendarPage() {
                       </div>
                     </div>
 
-                    <div className="pt-1 text-[12px] text-[#0a2e0e] font-medium border-t border-gray-200">
+                    <div className="pt-1 text-[12px] text-[#08c068] font-medium border-t border-gray-200">
                       {apt.service.name}
                     </div>
                   </div>

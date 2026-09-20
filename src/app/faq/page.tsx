@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { HelpCircle, Calendar, Phone, ArrowRight } from "lucide-react";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
@@ -33,7 +33,7 @@ export default async function FaqPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Help & Answers
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -69,7 +69,7 @@ export default async function FaqPage() {
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
             <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary group">
-              <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
+              <Phone className="w-4 h-4 text-[#08c068] transition-transform duration-200 group-hover:scale-110" />
               <span>{SECONDARY_CTA}</span>
             </a>
           </div>

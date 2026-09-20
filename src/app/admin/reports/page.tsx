@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+﻿import { prisma } from "@/lib/prisma";
 import { supabaseAdmin } from "@/lib/supabase";
 import { BarChart3, TrendingUp, Users, CalendarDays, CheckCircle2 } from "lucide-react";
 
@@ -70,7 +70,7 @@ export default async function AdminReportsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-6 rounded-xl border border-[#dddddd] shadow-sm space-y-2">
-          <span className="text-[12px] font-semibold text-[#0a2e0e] uppercase">
+          <span className="text-[12px] font-semibold text-[#08c068] uppercase">
             Total Request Volume
           </span>
           <div className="text-[32px] font-semibold text-[#181d26]">
@@ -120,7 +120,7 @@ export default async function AdminReportsPage() {
               </div>
               <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
                 <div
-                  className="bg-[#0a2e0e] h-full"
+                  className="bg-[#08c068] h-full"
                   style={{
                     width: `${
                       totalAppointments > 0

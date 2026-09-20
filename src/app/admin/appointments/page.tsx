@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -170,7 +170,7 @@ export default function AdminAppointmentsPage() {
           onClick={fetchAppointments}
           className="btn-secondary text-[13px] py-1.5 px-3 self-start sm:self-auto"
         >
-          <RefreshCw className="w-3.5 h-3.5 text-[#0a2e0e]" />
+          <RefreshCw className="w-3.5 h-3.5 text-[#08c068]" />
           <span>Refresh</span>
         </button>
       </div>
@@ -245,7 +245,7 @@ export default function AdminAppointmentsPage() {
                     <td className="py-3.5 px-4">
                       <div className="font-medium text-[#181d26]">{apt.client.fullName}</div>
                       <div className="text-[12px] text-[#41454d] flex items-center gap-1">
-                        <Phone className="w-3 h-3 text-[#0a2e0e]" />
+                        <Phone className="w-3 h-3 text-[#08c068]" />
                         <a href={`tel:${apt.client.phone}`} className="hover:underline">{apt.client.phone}</a>
                       </div>
                       <div className="text-[11px] text-gray-400">{apt.client.email}</div>
@@ -260,7 +260,7 @@ export default function AdminAppointmentsPage() {
                     </td>
                     <td className="py-3.5 px-4">
                       <div className="font-medium text-[#181d26]">{apt.preferredDate}</div>
-                      <div className="text-[12px] text-[#0a2e0e] font-medium">{apt.preferredTime} (EAT)</div>
+                      <div className="text-[12px] text-[#08c068] font-medium">{apt.preferredTime} (EAT)</div>
                     </td>
                     <td className="py-3.5 px-4 text-[#333840]">
                       {apt.assignedDentist
@@ -276,7 +276,7 @@ export default function AdminAppointmentsPage() {
                         onClick={() => openEditModal(apt)}
                         className="btn-secondary text-[12px] py-1.5 px-3"
                       >
-                        <Edit className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                        <Edit className="w-3.5 h-3.5 text-[#08c068]" />
                         <span>Manage</span>
                       </button>
                     </td>

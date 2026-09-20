@@ -1,4 +1,4 @@
-import { getServices } from "@/lib/admin-data";
+﻿import { getServices } from "@/lib/admin-data";
 import Link from "next/link";
 import { Stethoscope, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 
@@ -25,7 +25,7 @@ export default async function AdminServicesPage() {
           >
             <div className="space-y-2 max-w-xl">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-[#0a2e0e] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 uppercase">
+                <span className="text-[11px] font-semibold text-[#08c068] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 uppercase">
                   {service.category}
                 </span>
                 <span className="text-[12px] text-gray-500 font-mono">

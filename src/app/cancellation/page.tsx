@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -42,7 +42,7 @@ export default function CancellationPolicyPage() {
     <div className="bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-10 text-[#333840]">
         <div className="space-y-3 pb-6 border-b border-[#dddddd]">
-          <span className="text-[12px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+          <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
             Clinic Policies
           </span>
           <h1 className="text-[32px] sm:text-[38px] font-normal text-[#181d26] tracking-tight">
@@ -134,7 +134,7 @@ export default function CancellationPolicyPage() {
           </p>
           <div className="pt-2">
             <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-              <Phone className="w-4 h-4 text-[#0a2e0e]" />
+              <Phone className="w-4 h-4 text-[#08c068]" />
               <span>Call {CLINIC_PHONE}</span>
             </a>
           </div>

@@ -34,7 +34,7 @@ export default async function DentistsPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Dental Team
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -65,7 +65,7 @@ export default async function DentistsPage() {
 
               <div className="md:col-span-8 space-y-4">
                 <div>
-                  <span className="text-[12px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+                  <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
                     Lead Dental Specialist
                   </span>
                   <h2 className="text-[28px] font-medium text-[#181d26]">
@@ -88,7 +88,7 @@ export default async function DentistsPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px] text-[#333840]">
                     {PRIMARY_SERVICES.map((s) => (
                       <div key={s.slug} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#0a2e0e] shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#08c068] shrink-0" />
                         <span>{s.name}</span>
                       </div>
                     ))}
@@ -120,11 +120,11 @@ export default async function DentistsPage() {
       {/* Signature Forest CTA */}
       <section className="section-rhythm bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#0a2e0e] text-white rounded-xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-6">
-            <h2 className="text-[30px] font-normal leading-tight">
+          <div className="bg-[#08c068] text-white rounded-xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-6 shadow-lg">
+            <h2 className="text-[30px] font-normal leading-tight text-white">
               Schedule Your Dental Consultation with {LEAD_SPECIALIST}
             </h2>
-            <p className="text-[16px] text-gray-200">
+            <p className="text-[16px] text-white/95">
               Submit your preferred date and time online. Our clinic team will call you to confirm your visit.
             </p>
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">

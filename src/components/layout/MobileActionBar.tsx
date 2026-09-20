@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Phone, Calendar } from "lucide-react";
 import { CLINIC_PHONE, CLINIC_PHONE_DIGITS, PRIMARY_CTA } from "@/lib/constants";
 
@@ -10,7 +10,7 @@ export default function MobileActionBar() {
           href={`tel:${CLINIC_PHONE_DIGITS}`}
           className="btn-secondary py-2.5 px-3 text-[14px] justify-center"
         >
-          <Phone className="w-4 h-4 text-[#0a2e0e]" />
+          <Phone className="w-4 h-4 text-[#08c068]" />
           <span>Call Clinic</span>
         </a>
         <Link

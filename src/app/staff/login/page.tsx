@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -55,7 +55,7 @@ export default function StaffLoginPage() {
   return (
     <div className="min-h-[85vh] bg-[#f8fafc] flex flex-col justify-center py-12 px-4 sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
-        <div className="w-12 h-12 rounded-xl bg-[#0a2e0e] text-white flex items-center justify-center font-semibold text-lg mx-auto shadow-sm">
+        <div className="w-12 h-12 rounded-xl bg-[#08c068] text-white flex items-center justify-center font-semibold text-lg mx-auto shadow-sm">
           DC
         </div>
         <div>

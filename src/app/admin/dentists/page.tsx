@@ -1,4 +1,4 @@
-import { getDentists } from "@/lib/admin-data";
+﻿import { getDentists } from "@/lib/admin-data";
 import { UserCog, CheckCircle2, ShieldCheck, Stethoscope } from "lucide-react";
 import { LEAD_SPECIALIST } from "@/lib/constants";
 
@@ -32,7 +32,7 @@ export default async function AdminDentistsPage() {
                   <h2 className="text-[20px] font-medium text-[#181d26]">
                     {dentist.user.firstName} {dentist.user.lastName}
                   </h2>
-                  <p className="text-[13px] text-[#0a2e0e] font-medium">
+                  <p className="text-[13px] text-[#08c068] font-medium">
                     {dentist.professionalTitle || "Lead Dental Specialist"}
                   </p>
                 </div>

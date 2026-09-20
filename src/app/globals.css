@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -14,7 +14,7 @@
     --surface-strong: #e0e2e6;
     --surface-dark: #181d26;
     --signature-coral: #aa2d00;
-    --signature-forest: #0a2e0e;
+    --signature-forest: #08c068;
     --signature-cream: #f5e9d4;
     --signature-peach: #fcab79;
     --signature-mint: #a8d8c4;
@@ -156,7 +156,7 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 .form-input-interactive:focus {
-  border-color: #0a2e0e;
+  border-color: #08c068;
   outline: none;
   box-shadow: 0 0 0 3px rgba(10, 46, 14, 0.12);
 }

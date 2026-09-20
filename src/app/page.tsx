@@ -59,19 +59,19 @@ export default async function HomePage() {
               {/* Trust Chips */}
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-medium bg-[#f8fafc] text-[#181d26] border border-[#dddddd]">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#08c068]" />
                   Professional Dental Care
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-medium bg-[#f8fafc] text-[#181d26] border border-[#dddddd]">
-                  <Users className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                  <Users className="w-3.5 h-3.5 text-[#08c068]" />
                   Family-Friendly Services
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-medium bg-[#f8fafc] text-[#181d26] border border-[#dddddd]">
-                  <Clock className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                  <Clock className="w-3.5 h-3.5 text-[#08c068]" />
                   Convenient Appointment Requests
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-medium bg-[#f8fafc] text-[#181d26] border border-[#dddddd]">
-                  <MapPin className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#08c068]" />
                   Kampala Clinic
                 </span>
               </div>
@@ -94,7 +94,7 @@ export default async function HomePage() {
                   <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
                 <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary group">
-                  <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
+                  <Phone className="w-4 h-4 text-[#08c068] transition-transform duration-200 group-hover:scale-110" />
                   <span>{SECONDARY_CTA}</span>
                 </a>
               </div>
@@ -127,7 +127,7 @@ export default async function HomePage() {
                   {/* Floating clinic badge */}
                   <div className="absolute bottom-4 inset-x-4 p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#0a2e0e] text-white flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-[#08c068] text-white flex items-center justify-center shrink-0">
                         <Stethoscope className="w-5 h-5" />
                       </div>
                       <div>
@@ -135,7 +135,7 @@ export default async function HomePage() {
                           {CLINIC_NAME}
                         </div>
                         <div className="text-[12px] text-[#41454d] flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                          <MapPin className="w-3.5 h-3.5 text-[#08c068]" />
                           <span>Kampala, Uganda · Led by {LEAD_SPECIALIST}</span>
                         </div>
                       </div>
@@ -145,16 +145,16 @@ export default async function HomePage() {
 
                 <div className="p-6 space-y-3 bg-white border-t border-[#dddddd]">
                   <div className="flex items-center gap-3 text-[13px] text-[#333840]">
-                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
                     <span>Direct personal consultations with experienced dental specialists</span>
                   </div>
                   <div className="flex items-center gap-3 text-[13px] text-[#333840]">
-                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
                     <span>Simple online guest booking without login friction</span>
                   </div>
                   <div className="pt-2 flex items-center justify-between text-[12px] text-[#41454d] border-t border-[#dddddd]">
                     <span>Emergency & Routine Care</span>
-                    <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="font-medium text-[#0a2e0e] hover:underline">
+                    <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="font-medium text-[#08c068] hover:underline">
                       {CLINIC_PHONE}
                     </a>
                   </div>
@@ -169,7 +169,7 @@ export default async function HomePage() {
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Our Patient Philosophy
             </span>
             <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -182,7 +182,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-110">
                 <Smile className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -194,7 +194,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-110">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -206,7 +206,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-110">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -218,7 +218,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-110">
                 <Users className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -230,7 +230,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white p-6 rounded-lg border border-[#dddddd] flex flex-col justify-between space-y-4 shadow-sm card-interactive group">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-110">
                 <Clock className="w-5 h-5" />
               </div>
               <div className="space-y-2 flex-1">
@@ -249,7 +249,7 @@ export default async function HomePage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="space-y-3 max-w-xl">
-              <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+              <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
                 Clinical Expertise
               </span>
               <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -261,7 +261,7 @@ export default async function HomePage() {
             </div>
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 text-[15px] font-medium text-[#181d26] hover:text-[#0a2e0e] transition-colors"
+              className="inline-flex items-center gap-2 text-[15px] font-medium text-[#181d26] hover:text-[#08c068] transition-colors"
             >
               <span>View All Services</span>
               <ArrowRight className="w-4 h-4" />
@@ -283,14 +283,14 @@ export default async function HomePage() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                   />
-                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-[#0a2e0e] border border-white/60">
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-[#08c068] border border-white/60">
                     Category 0{idx + 1}
                   </div>
                 </div>
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors duration-200">
+                    <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#08c068] transition-colors duration-200">
                       {s.name}
                     </h3>
                     <p className="text-[14px] text-[#41454d] leading-relaxed line-clamp-3">
@@ -308,7 +308,7 @@ export default async function HomePage() {
                     </Link>
                     <Link
                       href={`/request-appointment?service=${s.slug}`}
-                      className="font-medium text-[#181d26] hover:text-[#0a2e0e] transition-colors duration-200"
+                      className="font-medium text-[#181d26] hover:text-[#08c068] transition-colors duration-200"
                     >
                       Request Visit
                     </Link>
@@ -323,15 +323,15 @@ export default async function HomePage() {
       {/* 4. SIGNATURE FOREST CARD: CLINIC INTRODUCTION */}
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#0a2e0e] text-white rounded-xl p-8 sm:p-12 lg:p-16">
+          <div className="bg-[#08c068] text-white rounded-xl p-8 sm:p-12 lg:p-16">
             <div className="max-w-3xl space-y-6">
-              <span className="text-[12px] uppercase tracking-wider text-[#a8d8c4] font-semibold">
+              <span className="text-[12px] uppercase tracking-wider text-white/85 font-semibold">
                 About Our Kampala Practice
               </span>
               <h2 className="text-[30px] sm:text-[38px] font-normal text-white leading-tight">
                 Welcome to Dr. Dental Crest Dental Surgery
               </h2>
-              <p className="text-[16px] text-gray-200 leading-relaxed">
+              <p className="text-[16px] text-white/95 leading-relaxed">
                 {CLINIC_NAME} serves patients in Kampala with a welcoming approach to oral health, smile care, and dental treatment. Led by {LEAD_SPECIALIST}, the clinic offers a range of services for adults, children, and families.
               </p>
               <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
@@ -370,7 +370,7 @@ export default async function HomePage() {
                   <h3 className="text-[22px] font-medium text-[#181d26]">
                     {LEAD_SPECIALIST}
                   </h3>
-                  <p className="text-[14px] text-[#0a2e0e] font-medium">
+                  <p className="text-[14px] text-[#08c068] font-medium">
                     Lead Dental Specialist
                   </p>
                   <p className="text-[13px] text-[#41454d]">
@@ -379,15 +379,15 @@ export default async function HomePage() {
                 </div>
                 <div className="pt-3 border-t border-[#dddddd] text-left text-[13px] text-[#41454d] space-y-2">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
                     <span>General Dentistry & Preventive Check-Ups</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
                     <span>Cosmetic Smile Consultations & Veneers</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
                     <span>Orthodontics & Restorative Implants</span>
                   </div>
                 </div>
@@ -396,7 +396,7 @@ export default async function HomePage() {
 
             {/* Lead specialist copy */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+              <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
                 Clinical Leadership
               </span>
               <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -446,7 +446,7 @@ export default async function HomePage() {
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
               <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary justify-center group">
-                <Phone className="w-4 h-4 text-[#0a2e0e] transition-transform duration-200 group-hover:scale-110" />
+                <Phone className="w-4 h-4 text-[#08c068] transition-transform duration-200 group-hover:scale-110" />
                 <span>Call {CLINIC_PHONE}</span>
               </a>
             </div>
@@ -458,7 +458,7 @@ export default async function HomePage() {
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Common Questions
             </span>
             <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -476,7 +476,7 @@ export default async function HomePage() {
           <div className="text-center mt-10">
             <Link
               href="/faq"
-              className="inline-flex items-center gap-2 text-[15px] font-medium text-[#181d26] hover:text-[#0a2e0e]"
+              className="inline-flex items-center gap-2 text-[15px] font-medium text-[#181d26] hover:text-[#08c068]"
             >
               <span>View All Frequently Asked Questions</span>
               <ArrowRight className="w-4 h-4" />

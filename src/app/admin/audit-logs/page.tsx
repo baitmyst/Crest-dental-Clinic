@@ -1,4 +1,4 @@
-import { getAuditLogs } from "@/lib/admin-data";
+﻿import { getAuditLogs } from "@/lib/admin-data";
 import { ScrollText, ShieldCheck, User } from "lucide-react";
 
 export default async function AdminAuditLogsPage() {
@@ -43,7 +43,7 @@ export default async function AdminAuditLogsPage() {
                       {log.actor ? `${log.actor.firstName} ${log.actor.lastName}` : "System Event"}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono text-[11px] bg-[#f8fafc] border border-[#dddddd] px-2 py-0.5 rounded text-[#0a2e0e]">
+                      <span className="font-mono text-[11px] bg-[#f8fafc] border border-[#dddddd] px-2 py-0.5 rounded text-[#08c068]">
                         {log.action}
                       </span>
                     </td>

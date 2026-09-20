@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Phone, MapPin, Clock, ShieldCheck, HeartHandshake, Lock } from "lucide-react";
 import { CLINIC_NAME, CLINIC_CITY, CLINIC_PHONE, CLINIC_PHONE_DIGITS, PRIMARY_SERVICES } from "@/lib/constants";
 
@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Clinic Brand & Summary */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[#0a2e0e] text-white flex items-center justify-center font-semibold text-lg">
+              <div className="w-10 h-10 rounded-lg bg-[#08c068] text-white flex items-center justify-center font-semibold text-lg">
                 DC
               </div>
               <div>
@@ -27,11 +27,11 @@ export default function Footer() {
             </p>
             <div className="pt-2 space-y-2 text-[14px]">
               <div className="flex items-center gap-2.5 text-[#181d26]">
-                <MapPin className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                <MapPin className="w-4 h-4 text-[#08c068] shrink-0" />
                 <span>{CLINIC_CITY} (Please call for directions)</span>
               </div>
               <div className="flex items-center gap-2.5 text-[#181d26]">
-                <Phone className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                <Phone className="w-4 h-4 text-[#08c068] shrink-0" />
                 <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="hover:underline">
                   {CLINIC_PHONE}
                 </a>
@@ -95,7 +95,7 @@ export default function Footer() {
           {/* Opening Hours Summary */}
           <div className="space-y-3">
             <h4 className="text-[14px] font-semibold tracking-wider text-[#181d26] uppercase flex items-center gap-1.5">
-              <Clock className="w-4 h-4 text-[#0a2e0e]" />
+              <Clock className="w-4 h-4 text-[#08c068]" />
               <span>Opening Hours</span>
             </h4>
             <div className="text-[13px] text-[#41454d] space-y-1.5">

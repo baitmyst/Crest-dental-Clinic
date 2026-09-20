@@ -1,4 +1,4 @@
-import { getClients } from "@/lib/admin-data";
+﻿import { getClients } from "@/lib/admin-data";
 import { Users, Phone, Mail, Calendar, Clock, CheckCircle2 } from "lucide-react";
 
 export default async function AdminClientsPage() {
@@ -44,11 +44,11 @@ export default async function AdminClientsPage() {
                 </h3>
                 <div className="text-[13px] text-[#41454d] space-y-1 pt-1">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                    <Phone className="w-3.5 h-3.5 text-[#08c068]" />
                     <a href={`tel:${client.phone}`} className="hover:underline">{client.phone}</a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                    <Mail className="w-3.5 h-3.5 text-[#08c068]" />
                     <span>{client.email}</span>
                   </div>
                 </div>

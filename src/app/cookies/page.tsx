@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { CLINIC_NAME } from "@/lib/constants";
 
 export const metadata = {
@@ -11,7 +11,7 @@ export default function CookiePolicyPage() {
     <div className="bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-8 text-[#333840]">
         <div className="space-y-3 pb-6 border-b border-[#dddddd]">
-          <span className="text-[12px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+          <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
             Privacy & Policies
           </span>
           <h1 className="text-[32px] sm:text-[38px] font-normal text-[#181d26] tracking-tight">

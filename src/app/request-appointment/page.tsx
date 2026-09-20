@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -148,7 +148,7 @@ export default function RequestAppointmentPage() {
       {/* Top Banner */}
       <div className="bg-[#f8fafc] border-b border-[#dddddd] py-10 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center space-y-3">
-          <span className="text-[12px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+          <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
             Guest Appointment System
           </span>
           <h1 className="text-[32px] sm:text-[38px] font-normal text-[#181d26] tracking-tight">
@@ -426,7 +426,7 @@ export default function RequestAppointmentPage() {
                 <p>{slotsNotice}</p>
                 <div className="pt-2">
                   <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary text-[13px] py-1.5 px-3">
-                    <Phone className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                    <Phone className="w-3.5 h-3.5 text-[#08c068]" />
                     <span>Call {CLINIC_PHONE}</span>
                   </a>
                 </div>
@@ -783,7 +783,7 @@ export default function RequestAppointmentPage() {
                 <span>Return to Homepage</span>
               </Link>
               <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                <Phone className="w-4 h-4 text-[#0a2e0e]" />
+                <Phone className="w-4 h-4 text-[#08c068]" />
                 <span>Call {CLINIC_PHONE}</span>
               </a>
             </div>

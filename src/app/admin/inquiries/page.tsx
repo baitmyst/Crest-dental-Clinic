@@ -1,4 +1,4 @@
-import { getInquiries } from "@/lib/admin-data";
+﻿import { getInquiries } from "@/lib/admin-data";
 import { MessageSquare, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
 
 export default async function AdminInquiriesPage() {
@@ -46,7 +46,7 @@ export default async function AdminInquiriesPage() {
                 href={`tel:${inq.phone}`}
                 className="btn-secondary text-[12px] py-1 px-3"
               >
-                <Phone className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                <Phone className="w-3.5 h-3.5 text-[#08c068]" />
                 <span>Call Patient</span>
               </a>
             </div>

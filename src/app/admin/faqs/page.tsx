@@ -1,4 +1,4 @@
-import { getFaqs } from "@/lib/admin-data";
+﻿import { getFaqs } from "@/lib/admin-data";
 import { HelpCircle, CheckCircle2, Edit } from "lucide-react";
 
 export default async function AdminFaqsPage() {
@@ -24,7 +24,7 @@ export default async function AdminFaqsPage() {
           >
             <div className="flex items-start justify-between gap-4">
               <div className="space-y-1">
-                <span className="text-[11px] font-semibold text-[#0a2e0e] bg-emerald-50 px-2 py-0.5 rounded uppercase">
+                <span className="text-[11px] font-semibold text-[#08c068] bg-emerald-50 px-2 py-0.5 rounded uppercase">
                   {faq.category}
                 </span>
                 <h3 className="text-[16px] font-medium text-[#181d26] pt-1">

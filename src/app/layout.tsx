@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -66,7 +66,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-white text-[#333840] selection:bg-[#a8d8c4] selection:text-[#0a2e0e]">
+      <body className="min-h-screen flex flex-col bg-white text-[#333840] selection:bg-[#a8d8c4] selection:text-[#08c068]">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

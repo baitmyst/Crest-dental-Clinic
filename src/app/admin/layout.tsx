@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -72,7 +72,7 @@ export default async function AdminLayout({
         {/* Clinic Header */}
         <div className="p-5 border-b border-[#dddddd] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#0a2e0e] text-white flex items-center justify-center font-bold text-sm">
+            <div className="w-8 h-8 rounded-lg bg-[#08c068] text-white flex items-center justify-center font-bold text-sm">
               DC
             </div>
             <div>
@@ -100,7 +100,7 @@ export default async function AdminLayout({
             <div className="font-medium text-[13px] text-[#181d26]">
               {session.firstName} {session.lastName}
             </div>
-            <div className="text-[11px] font-semibold text-[#0a2e0e] bg-emerald-100 px-2 py-0.5 rounded inline-block">
+            <div className="text-[11px] font-semibold text-[#08c068] bg-emerald-100 px-2 py-0.5 rounded inline-block">
               ROLE: {session.role}
             </div>
           </div>

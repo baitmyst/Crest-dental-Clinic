@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               About Our Clinic
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -49,7 +49,7 @@ export default function AboutPage() {
                 <span>{PRIMARY_CTA}</span>
               </Link>
               <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                <Phone className="w-4 h-4 text-[#0a2e0e]" />
+                <Phone className="w-4 h-4 text-[#08c068]" />
                 <span>{SECONDARY_CTA}</span>
               </a>
             </div>
@@ -62,7 +62,7 @@ export default function AboutPage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -74,7 +74,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
                 <HeartHandshake className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -86,7 +86,7 @@ export default function AboutPage() {
             </div>
 
             <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
+              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -103,33 +103,33 @@ export default function AboutPage() {
       {/* Signature Forest Card: Lead Specialist */}
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#0a2e0e] text-white rounded-xl p-8 sm:p-12 lg:p-16">
+          <div className="bg-[#08c068] text-white rounded-xl p-8 sm:p-12 lg:p-16 shadow-lg">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-6">
-                <span className="text-[12px] uppercase tracking-wider text-[#a8d8c4] font-semibold">
+                <span className="text-[12px] uppercase tracking-wider text-white/85 font-semibold">
                   Clinical Leadership
                 </span>
-                <h2 className="text-[32px] sm:text-[38px] font-normal leading-tight">
+                <h2 className="text-[32px] sm:text-[38px] font-normal leading-tight text-white">
                   Meet {LEAD_SPECIALIST}
                 </h2>
-                <p className="text-[16px] text-gray-200 leading-relaxed">
+                <p className="text-[16px] text-white/95 leading-relaxed">
                   {LEAD_SPECIALIST} leads the dental care team at {CLINIC_NAME}. Learn more about the clinic’s approach to general dentistry, cosmetic treatments, orthodontics, restorative care, and family-focused appointments.
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-[14px] text-gray-200">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-[14px] text-white/95">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#a8d8c4]" />
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                     <span>General Dentistry & Check-Ups</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#a8d8c4]" />
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                     <span>Cosmetic Smile Care & Veneers</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#a8d8c4]" />
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                     <span>Dental Implants & Restorative</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#a8d8c4]" />
+                    <CheckCircle2 className="w-4 h-4 text-white" />
                     <span>Children’s Gentle Dentistry</span>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
                   <Link href="/request-appointment" className="btn-secondary-on-dark">
                     <span>Request an Appointment with {LEAD_SPECIALIST}</span>
                   </Link>
-                  <Link href="/dentists" className="inline-flex items-center text-[#a8d8c4] hover:underline font-medium text-[15px]">
+                  <Link href="/dentists" className="inline-flex items-center text-white/90 hover:text-white underline font-medium text-[15px]">
                     <span>View Specialist Roster &rarr;</span>
                   </Link>
                 </div>
@@ -162,7 +162,7 @@ export default function AboutPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-            <span className="text-[13px] font-semibold tracking-wider text-[#0a2e0e] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
               Our Practice Environment
             </span>
             <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -217,7 +217,7 @@ export default function AboutPage() {
               <span>{PRIMARY_CTA}</span>
             </Link>
             <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-              <Phone className="w-4 h-4 text-[#0a2e0e]" />
+              <Phone className="w-4 h-4 text-[#08c068]" />
               <span>{SECONDARY_CTA}</span>
             </a>
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { HelpCircle, ChevronDown } from "lucide-react";
@@ -40,7 +40,7 @@ export default function FaqAccordion({ faqs, defaultOpenIndex = 0 }: FaqAccordio
             key={faq.id}
             className={`bg-white rounded-xl border transition-all duration-200 shadow-sm ${
               isOpen
-                ? "border-[#0a2e0e]/40 ring-1 ring-[#0a2e0e]/10 shadow-md"
+                ? "border-[#08c068]/40 ring-1 ring-[#08c068]/10 shadow-md"
                 : "border-[#dddddd] hover:border-[#cbd5e1]"
             }`}
           >
@@ -48,17 +48,17 @@ export default function FaqAccordion({ faqs, defaultOpenIndex = 0 }: FaqAccordio
               type="button"
               onClick={() => toggle(faq.id)}
               aria-expanded={isOpen}
-              className="w-full flex items-center justify-between gap-4 p-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0a2e0e] rounded-xl transition-colors"
+              className="w-full flex items-center justify-between gap-4 p-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#08c068] rounded-xl transition-colors"
             >
               <div className="flex items-center gap-3">
-                <HelpCircle className="w-5 h-5 text-[#0a2e0e] shrink-0" />
+                <HelpCircle className="w-5 h-5 text-[#08c068] shrink-0" />
                 <span className="text-[16px] font-medium text-[#181d26]">
                   {faq.question}
                 </span>
               </div>
               <ChevronDown
                 className={`w-4 h-4 text-[#41454d] shrink-0 transition-transform duration-200 ${
-                  isOpen ? "rotate-180 text-[#0a2e0e]" : ""
+                  isOpen ? "rotate-180 text-[#08c068]" : ""
                 }`}
               />
             </button>
