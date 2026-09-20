@@ -27,27 +27,27 @@ export default function Header() {
       }`}
     >
       {/* Top Announcement Bar */}
-      <div className="bg-[#181d26] text-white text-[13px] py-2 px-4 transition-colors">
+      <div className="bg-[#08c068] text-white text-[13px] py-2 px-4 transition-colors shadow-sm">
         <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse"></span>
             <span className="font-medium">Professional Dental Care in Kampala</span>
-            <span className="hidden md:inline text-gray-400">|</span>
-            <span className="hidden md:inline text-gray-300">
+            <span className="hidden md:inline text-white/60">|</span>
+            <span className="hidden md:inline text-white/95">
               Mon–Thu, Sat: 8:00 AM–8:00 PM · Sun: 9:00 AM–5:00 PM
             </span>
           </div>
           <div className="flex items-center gap-4">
             <a
               href={`tel:${CLINIC_PHONE_DIGITS}`}
-              className="flex items-center gap-1.5 text-gray-200 hover:text-white transition-colors duration-200"
+              className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors duration-200"
             >
               <Phone className="w-3.5 h-3.5" />
               <span>{CLINIC_PHONE}</span>
             </a>
             <a
               href={`tel:${CLINIC_PHONE_DIGITS}`}
-              className="hidden sm:inline-block bg-white/10 hover:bg-white/20 text-white text-[12px] px-2.5 py-1 rounded transition-colors duration-200"
+              className="hidden sm:inline-block bg-white/20 hover:bg-white/30 text-white font-medium text-[12px] px-2.5 py-1 rounded transition-colors duration-200"
             >
               Call Our Clinic
             </a>

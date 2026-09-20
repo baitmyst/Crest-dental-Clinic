@@ -177,7 +177,7 @@ export default function RequestAppointmentPage() {
             </div>
             <div className="w-full bg-[#e0e2e6] h-1.5 rounded-full overflow-hidden">
               <div
-                className="bg-[#181d26] h-full transition-all duration-300"
+                className="bg-[#08c068] h-full transition-all duration-300"
                 style={{ width: `${(currentStep / 6) * 100}%` }}
               ></div>
             </div>
@@ -212,7 +212,7 @@ export default function RequestAppointmentPage() {
                     onClick={() => setServiceSlug(s.slug)}
                     className={`block p-4 sm:p-5 rounded-lg border cursor-pointer transition-all ${
                       isSelected
-                        ? "border-[#181d26] bg-[#f8fafc] ring-1 ring-[#181d26]"
+                        ? "border-[#08c068] bg-[#f8fafc] ring-1 ring-[#08c068]"
                         : "border-[#dddddd] bg-white hover:border-gray-400"
                     }`}
                   >
@@ -268,13 +268,13 @@ export default function RequestAppointmentPage() {
                 onClick={() => setDentistPreference("dr-silver")}
                 className={`block p-5 rounded-lg border cursor-pointer transition-all ${
                   dentistPreference === "dr-silver"
-                    ? "border-[#181d26] bg-[#f8fafc] ring-1 ring-[#181d26]"
+                    ? "border-[#08c068] bg-[#f8fafc] ring-1 ring-[#08c068]"
                     : "border-[#dddddd] bg-white hover:border-gray-400"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#181d26] text-white flex items-center justify-center font-medium text-sm">
+                    <div className="w-10 h-10 rounded-full bg-[#08c068] text-white flex items-center justify-center font-medium text-sm">
                       DS
                     </div>
                     <div>
@@ -299,7 +299,7 @@ export default function RequestAppointmentPage() {
                 onClick={() => setDentistPreference("no-preference")}
                 className={`block p-5 rounded-lg border cursor-pointer transition-all ${
                   dentistPreference === "no-preference"
-                    ? "border-[#181d26] bg-[#f8fafc] ring-1 ring-[#181d26]"
+                    ? "border-[#08c068] bg-[#f8fafc] ring-1 ring-[#08c068]"
                     : "border-[#dddddd] bg-white hover:border-gray-400"
                 }`}
               >
@@ -450,7 +450,7 @@ export default function RequestAppointmentPage() {
                         !slot.available
                           ? "opacity-40 cursor-not-allowed bg-gray-100 border-gray-200 text-gray-400"
                           : isSelected
-                          ? "bg-[#181d26] text-white border-[#181d26]"
+                          ? "bg-[#08c068] text-white border-[#08c068]"
                           : "bg-white text-[#181d26] border-[#dddddd] hover:border-gray-400"
                       }`}
                     >

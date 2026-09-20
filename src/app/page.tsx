@@ -485,21 +485,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. SIGNATURE DARK CARD: CONTACT / LOCATION CTA */}
+      {/* 8. SIGNATURE ACCENT CARD: CONTACT / LOCATION CTA */}
       <section className="section-rhythm bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="bg-[#181d26] text-white rounded-xl p-8 sm:p-12 lg:p-16">
+          <div className="bg-[#08c068] text-white rounded-xl p-8 sm:p-12 lg:p-16 shadow-lg">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
               <div className="space-y-4">
-                <span className="text-[12px] uppercase tracking-wider text-[#a8d8c4] font-semibold">
+                <span className="text-[12px] uppercase tracking-wider text-white/85 font-semibold">
                   Get in Touch
                 </span>
                 <h2 className="text-[30px] sm:text-[36px] font-normal text-white">
                   Contact {CLINIC_NAME}
                 </h2>
-                <div className="space-y-3 pt-2 text-[15px] text-gray-200">
+                <div className="space-y-3 pt-2 text-[15px] text-white/95">
                   <div className="flex items-center gap-3">
-                    <MapPin className="w-5 h-5 text-[#a8d8c4] shrink-0" />
+                    <MapPin className="w-5 h-5 text-white/90 shrink-0" />
                     <span>{SAFE_DIRECTIONS_NOTICE}</span>
                   </div>
                   <div className="flex items-center gap-3">

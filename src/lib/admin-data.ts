@@ -486,7 +486,7 @@ export async function getSiteSettings() {
       return {
         id: data.id,
         clinicName: data.clinic_name || "Dr. Dental Crest Dental Surgery",
-        primaryColor: data.primary_color || "#181d26",
+        primaryColor: data.primary_color || "#08c068",
         secondaryColor: data.secondary_color || "#0a2e0e",
         accentColor: data.accent_color || "#aa2d00",
         contactPhone: data.contact_phone || "+256 773 003214",
@@ -507,7 +507,7 @@ export async function getSiteSettings() {
   return {
     id: "default",
     clinicName: "Dr. Dental Crest Dental Surgery",
-    primaryColor: "#181d26",
+    primaryColor: "#08c068",
     secondaryColor: "#0a2e0e",
     accentColor: "#aa2d00",
     contactPhone: "+256 773 003214",

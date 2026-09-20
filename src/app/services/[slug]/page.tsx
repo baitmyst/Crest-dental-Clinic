@@ -264,7 +264,7 @@ export default async function ServiceDetailPage({
                   key={idx}
                   className="bg-[#f8fafc] border border-[#dddddd] p-6 rounded-lg space-y-3 relative"
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#181d26] text-white flex items-center justify-center font-medium text-[13px]">
+                  <div className="w-8 h-8 rounded-full bg-[#08c068] text-white flex items-center justify-center font-medium text-[13px]">
                     0{idx + 1}
                   </div>
                   <h3 className="text-[16px] font-medium text-[#181d26]">
