@@ -89,9 +89,6 @@ export default function Header() {
           <Link href="/faq" className="relative py-1 hover:text-[#0a2e0e] transition-colors duration-200">
             FAQs
           </Link>
-          <Link href="/blog" className="relative py-1 hover:text-[#0a2e0e] transition-colors duration-200">
-            Blog
-          </Link>
           <Link href="/contact" className="relative py-1 hover:text-[#0a2e0e] transition-colors duration-200">
             Contact
           </Link>
@@ -166,13 +163,6 @@ export default function Header() {
                 className="px-3 py-2.5 rounded-lg hover:bg-gray-50"
               >
                 FAQs
-              </Link>
-              <Link
-                href="/blog"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2.5 rounded-lg hover:bg-gray-50"
-              >
-                Blog
               </Link>
               <Link
                 href="/contact"

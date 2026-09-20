@@ -85,11 +85,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-[#41454d] hover:text-[#181d26] transition-colors">
-                  Oral Health Blog
-                </Link>
-              </li>
-              <li>
                 <Link href="/emergency" className="text-[#aa2d00] hover:underline font-medium">
                   Dental Emergencies
                 </Link>

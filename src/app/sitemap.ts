@@ -14,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/request-appointment",
     "/contact",
     "/faq",
-    "/blog",
     "/privacy",
     "/terms",
     "/cancellation",
@@ -34,18 +33,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  let blogRoutes: any[] = [];
-  try {
-    const posts = await prisma.blogPost.findMany({ select: { slug: true, updatedAt: true } });
-    blogRoutes = posts.map((p) => ({
-      url: `${baseUrl}/blog/${p.slug}`,
-      lastModified: p.updatedAt,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
-  } catch {
-    // fallback
-  }
-
-  return [...staticRoutes, ...serviceRoutes, ...blogRoutes];
+  return [...staticRoutes, ...serviceRoutes];
 }
