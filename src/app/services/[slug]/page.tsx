@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Calendar,
   Phone,
@@ -130,38 +131,54 @@ export default async function ServiceDetailPage({
               </div>
             </div>
 
-            {/* Quick Consultation Overview Card */}
+            {/* Quick Consultation Overview Card with Service Photo */}
             <div className="lg:col-span-4">
-              <div className="bg-[#f8fafc] border border-[#dddddd] rounded-xl p-6 sm:p-7 space-y-5">
-                <h3 className="text-[18px] font-medium text-[#181d26]">
-                  Consultation Overview
-                </h3>
-                <div className="space-y-3 text-[14px]">
-                  <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
-                    <span className="text-[#41454d]">Lead Dentist:</span>
-                    <span className="font-medium text-[#181d26]">{LEAD_SPECIALIST}</span>
-                  </div>
-                  <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
-                    <span className="text-[#41454d]">Estimated Duration:</span>
-                    <span className="font-medium text-[#181d26]">{service.durationMinutes} minutes</span>
-                  </div>
-                  <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
-                    <span className="text-[#41454d]">Location:</span>
-                    <span className="font-medium text-[#181d26]">Kampala Clinic</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#41454d]">Booking Mode:</span>
-                    <span className="font-medium text-[#0a2e0e]">Online Guest Request</span>
+              <div className="bg-[#f8fafc] border border-[#dddddd] rounded-2xl overflow-hidden shadow-sm space-y-0">
+                <div className="relative aspect-[16/10] w-full bg-gray-100">
+                  <Image
+                    src={`/images/services/${service.slug}.jpg`}
+                    alt={service.name}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 35vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-[#0a2e0e] border border-white/60">
+                    {service.category}
                   </div>
                 </div>
 
-                <div className="pt-2">
-                  <Link
-                    href={`/request-appointment?service=${service.slug}`}
-                    className="btn-primary w-full justify-center text-[14px]"
-                  >
-                    <span>Request an Appointment</span>
-                  </Link>
+                <div className="p-6 sm:p-7 space-y-5 bg-white">
+                  <h3 className="text-[18px] font-medium text-[#181d26]">
+                    Consultation Overview
+                  </h3>
+                  <div className="space-y-3 text-[14px]">
+                    <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
+                      <span className="text-[#41454d]">Lead Dentist:</span>
+                      <span className="font-medium text-[#181d26]">{LEAD_SPECIALIST}</span>
+                    </div>
+                    <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
+                      <span className="text-[#41454d]">Estimated Duration:</span>
+                      <span className="font-medium text-[#181d26]">{service.durationMinutes} minutes</span>
+                    </div>
+                    <div className="flex items-center justify-between pb-2.5 border-b border-[#dddddd]">
+                      <span className="text-[#41454d]">Location:</span>
+                      <span className="font-medium text-[#181d26]">Kampala Clinic</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[#41454d]">Booking Mode:</span>
+                      <span className="font-medium text-[#0a2e0e]">Online Guest Request</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <Link
+                      href={`/request-appointment?service=${service.slug}`}
+                      className="btn-primary w-full justify-center text-[14px]"
+                    >
+                      <span>Request an Appointment</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

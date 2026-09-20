@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Calendar, Phone, CheckCircle2, ShieldCheck, Sparkles, Smile, Users, HeartPulse } from "lucide-react";
 import {
   CLINIC_NAME,
@@ -75,7 +76,7 @@ export default async function ServicesPage() {
                   className="bg-white rounded-xl border border-[#dddddd] p-8 lg:p-10 shadow-sm"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    <div className="lg:col-span-8 space-y-4">
+                    <div className="lg:col-span-7 space-y-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#0a2e0e]">
                           <ShieldCheck className="w-5 h-5" />
@@ -93,7 +94,7 @@ export default async function ServicesPage() {
 
                       {benefits.length > 0 && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                          {benefits.slice(0, 4).map((b, bIdx) => (
+                          {benefits.slice(0, 4).map((b: string, bIdx: number) => (
                             <div key={bIdx} className="flex items-center gap-2 text-[13px] text-[#333840]">
                               <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
                               <span>{b}</span>
@@ -103,7 +104,18 @@ export default async function ServicesPage() {
                       )}
                     </div>
 
-                    <div className="lg:col-span-4 lg:border-l lg:border-[#dddddd] lg:pl-8 space-y-4 flex flex-col justify-between h-full pt-4 lg:pt-0">
+                    <div className="lg:col-span-5 lg:border-l lg:border-[#dddddd] lg:pl-8 space-y-4 flex flex-col justify-between h-full pt-4 lg:pt-0">
+                      {/* Service Photography */}
+                      <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden border border-[#dddddd] shadow-sm bg-gray-100">
+                        <Image
+                          src={service.imageUrl || `/images/services/${service.slug}.jpg`}
+                          alt={service.imageAlt || service.name}
+                          fill
+                          sizes="(max-width: 1024px) 100vw, 40vw"
+                          className="object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      </div>
+
                       <div className="space-y-2">
                         <span className="text-[12px] font-semibold tracking-wider text-[#41454d] uppercase">
                           Consultation Process
@@ -113,7 +125,7 @@ export default async function ServicesPage() {
                         </p>
                       </div>
 
-                      <div className="space-y-2.5 pt-4">
+                      <div className="space-y-2.5 pt-2">
                         <Link
                           href={`/services/${service.slug}`}
                           className="btn-primary w-full justify-center text-[14px] py-2.5"

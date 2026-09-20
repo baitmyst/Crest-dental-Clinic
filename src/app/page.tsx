@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Calendar,
   Phone,
@@ -109,38 +110,51 @@ export default async function HomePage() {
 
             {/* Right Visual Representation */}
             <div className="lg:col-span-5">
-              <div className="relative rounded-xl border border-[#dddddd] bg-[#f8fafc] p-6 sm:p-8 overflow-hidden">
-                <div className="space-y-5">
-                  <div className="w-12 h-12 rounded-lg bg-[#0a2e0e] text-white flex items-center justify-center">
-                    <Stethoscope className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-[20px] font-medium text-[#181d26]">
-                      Comprehensive Care in Kampala
-                    </h3>
-                    <p className="text-[14px] text-[#41454d] mt-1.5 leading-relaxed">
-                      Every patient receives attentive, personalized consultations in a modern, calm clinical environment.
-                    </p>
-                  </div>
+              <div className="relative rounded-2xl border border-[#dddddd] bg-[#f8fafc] overflow-hidden shadow-lg group">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src="/images/hero-clinic.jpg"
+                    alt="Dr. Dental Crest Dental Surgery clinical consultation in Kampala"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                  <div className="space-y-3 pt-2">
-                    <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-[#dddddd]">
-                      <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
-                      <span className="text-[14px] text-[#333840]">Direct care led by {LEAD_SPECIALIST}</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-[#dddddd]">
-                      <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
-                      <span className="text-[14px] text-[#333840]">Guest booking without account registration</span>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-[#dddddd]">
-                      <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
-                      <span className="text-[14px] text-[#333840]">Attentive phone & message follow-up</span>
+                  {/* Floating clinic badge */}
+                  <div className="absolute bottom-4 inset-x-4 p-3.5 rounded-xl bg-white/95 backdrop-blur-md border border-white/40 shadow-md flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#0a2e0e] text-white flex items-center justify-center shrink-0">
+                        <Stethoscope className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="text-[14px] font-semibold text-[#181d26]">
+                          {CLINIC_NAME}
+                        </div>
+                        <div className="text-[12px] text-[#41454d] flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-[#0a2e0e]" />
+                          <span>Kampala, Uganda · Led by {LEAD_SPECIALIST}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </div>
 
-                  <div className="pt-2 text-[12px] text-[#41454d] border-t border-[#dddddd] flex items-center justify-between">
-                    <span>{CLINIC_CITY}</span>
-                    <span className="text-[#0a2e0e] font-medium">{CLINIC_PHONE}</span>
+                <div className="p-6 space-y-3 bg-white border-t border-[#dddddd]">
+                  <div className="flex items-center gap-3 text-[13px] text-[#333840]">
+                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <span>Direct personal consultations with experienced dental specialists</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-[13px] text-[#333840]">
+                    <CheckCircle2 className="w-4 h-4 text-[#0a2e0e] shrink-0" />
+                    <span>Simple online guest booking without login friction</span>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between text-[12px] text-[#41454d] border-t border-[#dddddd]">
+                    <span>Emergency & Routine Care</span>
+                    <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="font-medium text-[#0a2e0e] hover:underline">
+                      {CLINIC_PHONE}
+                    </a>
                   </div>
                 </div>
               </div>
@@ -256,34 +270,47 @@ export default async function HomePage() {
             {PRIMARY_SERVICES.map((s, idx) => (
               <div
                 key={s.slug}
-                className="group bg-white p-7 rounded-lg border border-[#dddddd] hover:border-gray-400 transition-colors flex flex-col justify-between"
+                className="group bg-white rounded-xl border border-[#dddddd] hover:border-gray-400 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-md"
               >
-                <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center font-semibold text-[15px] text-[#0a2e0e]">
-                    0{idx + 1}
+                {/* Service Photo */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+                  <Image
+                    src={s.imageUrl}
+                    alt={s.imageAlt || s.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-white/90 backdrop-blur-sm text-[#0a2e0e] border border-white/60">
+                    Category 0{idx + 1}
                   </div>
-                  <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors">
-                    {s.name}
-                  </h3>
-                  <p className="text-[14px] text-[#41454d] leading-relaxed">
-                    {s.summary}
-                  </p>
                 </div>
 
-                <div className="pt-6 mt-6 border-t border-[#dddddd] flex items-center justify-between text-[14px]">
-                  <Link
-                    href={`/services/${s.slug}`}
-                    className="font-medium text-[#1b61c9] hover:text-[#1a3866] flex items-center gap-1"
-                  >
-                    <span>Learn More</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <Link
-                    href={`/request-appointment?service=${s.slug}`}
-                    className="font-medium text-[#181d26] hover:text-[#0a2e0e]"
-                  >
-                    Request Visit
-                  </Link>
+                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h3 className="text-[18px] font-medium text-[#181d26] group-hover:text-[#0a2e0e] transition-colors">
+                      {s.name}
+                    </h3>
+                    <p className="text-[14px] text-[#41454d] leading-relaxed line-clamp-3">
+                      {s.summary}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-[#dddddd] flex items-center justify-between text-[14px]">
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="font-medium text-[#1b61c9] hover:text-[#1a3866] flex items-center gap-1"
+                    >
+                      <span>Learn More</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                    <Link
+                      href={`/request-appointment?service=${s.slug}`}
+                      className="font-medium text-[#181d26] hover:text-[#0a2e0e]"
+                    >
+                      Request Visit
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
