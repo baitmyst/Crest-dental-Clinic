@@ -404,8 +404,7 @@ export default function RequestAppointmentPage() {
 
               <div className="pt-2 text-[12px] text-[#41454d] space-y-1">
                 <p>Clinic operating hours (Africa/Kampala):</p>
-                <p>• Mon–Thu, Sat: 8:00 AM – 8:00 PM</p>
-                <p>• Friday: Awaiting confirmation (call clinic for Friday requests)</p>
+                <p>• Monday – Saturday: 8:00 AM – 8:00 PM</p>
                 <p>• Sunday: 9:00 AM – 5:00 PM</p>
               </div>
             </div>

@@ -21,13 +21,6 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const validated = requestSchema.parse(body);
 
-    // Strict Friday operating check: Friday requires verification
-    const targetDate = new Date(`${validated.preferredDate}T00:00:00`);
-    if (targetDate.getDay() === 5) {
-      // Allow only if confirmed, otherwise provide helpful clinic notice
-      const dateString = validated.preferredDate;
-    }
-
     const appointment = await createAppointmentRequest({
       fullName: validated.fullName,
       phone: validated.phone,

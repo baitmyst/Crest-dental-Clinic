@@ -56,27 +56,17 @@ export async function getAvailableSlotsForDate(
     console.warn("Supabase workingHours error:", err);
   }
 
-  // Fallback defaults if table is empty
-  if (!workingHours) {
-    if (dayOfWeek === 5) {
-      workingHours = { startTime: "08:00", endTime: "08:30", isAvailable: false, isVerified: false };
-    } else if (dayOfWeek === 0) {
+  // Fallback defaults if table is empty or unverified
+  if (!workingHours || !workingHours.isVerified) {
+    if (dayOfWeek === 0) {
       workingHours = { startTime: "09:00", endTime: "17:00", isAvailable: true, isVerified: true };
     } else {
+      // Monday through Saturday (including Friday) are normal working hours: 8:00 AM – 8:00 PM
       workingHours = { startTime: "08:00", endTime: "20:00", isAvailable: true, isVerified: true };
     }
   }
 
-  // 2. Strict Friday check: Friday requires admin confirmation
-  if (!workingHours.isAvailable || !workingHours.isVerified) {
-    if (dayOfWeek === 5) {
-      return {
-        date: dateString,
-        slots: [],
-        notice:
-          "Friday clinic operating hours are currently under administrative confirmation. Please call +256 773 003214 for Friday requests.",
-      };
-    }
+  if (!workingHours.isAvailable) {
     return {
       date: dateString,
       slots: [],

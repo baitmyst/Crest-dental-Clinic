@@ -103,9 +103,9 @@ export default function Footer() {
                 <span>Mon – Thu:</span>
                 <span className="font-medium text-[#181d26]">8:00 AM – 8:00 PM</span>
               </div>
-              <div className="flex justify-between text-amber-800">
+              <div className="flex justify-between">
                 <span>Friday:</span>
-                <span className="italic">Call clinic to confirm</span>
+                <span className="font-medium text-[#181d26]">8:00 AM – 8:00 PM</span>
               </div>
               <div className="flex justify-between">
                 <span>Saturday:</span>
@@ -116,7 +116,7 @@ export default function Footer() {
                 <span className="font-medium text-[#181d26]">9:00 AM – 5:00 PM</span>
               </div>
               <p className="text-[11px] text-gray-500 pt-2">
-                Timezone: Africa/Kampala. Friday hours subject to administrative confirmation.
+                Timezone: Africa/Kampala.
               </p>
             </div>
           </div>

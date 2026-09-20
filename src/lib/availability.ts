@@ -72,25 +72,16 @@ export async function getAvailableSlotsForDate(
   }
 
   // Fallback defaults if database tables cannot be reached
-  if (!workingHours) {
-    if (dayOfWeek === 5) {
-      workingHours = { startTime: "08:00", endTime: "08:30", isAvailable: false, isVerified: false };
-    } else if (dayOfWeek === 0) {
+  if (!workingHours || !workingHours.isVerified) {
+    if (dayOfWeek === 0) {
       workingHours = { startTime: "09:00", endTime: "17:00", isAvailable: true, isVerified: true };
     } else {
+      // Monday through Saturday (including Friday) are normal working hours 8:00 AM - 8:00 PM
       workingHours = { startTime: "08:00", endTime: "20:00", isAvailable: true, isVerified: true };
     }
   }
 
-  // Strict Friday rule: If hours are unverified or day is not available, block booking
-  if (!workingHours || !workingHours.isAvailable || !workingHours.isVerified) {
-    if (dayOfWeek === 5) {
-      return {
-        date: dateString,
-        slots: [],
-        notice: "Friday clinic hours are currently under administrative confirmation. Please call our clinic at +256 773 003214 for Friday appointments.",
-      };
-    }
+  if (!workingHours.isAvailable) {
     return {
       date: dateString,
       slots: [],

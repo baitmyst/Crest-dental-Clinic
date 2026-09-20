@@ -122,21 +122,7 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Friday Operating Hours Notice */}
-      <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg flex items-start justify-between gap-4 text-[13px] text-amber-900">
-        <div className="flex items-start gap-2.5">
-          <AlertCircle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-          <div>
-            <strong>Administrative Schedule Notice:</strong> Friday hours (8:00 AM – 8:30 AM) are flagged as <em>DRAFT / NEEDS CONFIRMATION</em>. Public live booking for Friday is locked until approved in Availability Settings.
-          </div>
-        </div>
-        <Link
-          href="/admin/availability"
-          className="text-[12px] font-semibold text-amber-900 underline whitespace-nowrap"
-        >
-          Review Hours &rarr;
-        </Link>
-      </div>
+
 
       {/* KPI Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

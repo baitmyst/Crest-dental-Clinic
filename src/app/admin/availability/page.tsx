@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import { Clock, AlertCircle, CheckCircle2, ShieldCheck, RefreshCw } from "lucide-react";
 
 export default function AdminAvailabilityPage() {
-  const [fridayVerified, setFridayVerified] = useState(false);
+  const [fridayVerified, setFridayVerified] = useState(true);
   const [startTime, setStartTime] = useState("08:00");
-  const [endTime, setEndTime] = useState("08:30");
+  const [endTime, setEndTime] = useState("20:00");
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -18,7 +18,7 @@ export default function AdminAvailabilityPage() {
     {
       day: "Friday",
       hours: `${startTime} – ${endTime}`,
-      status: fridayVerified ? "Verified by Admin" : "DRAFT / ADMIN CONFIRMATION REQUIRED",
+      status: fridayVerified ? "Verified & Bookable" : "DRAFT / ADMIN CONFIRMATION REQUIRED",
       isFriday: true,
     },
     { day: "Saturday", hours: "08:00 – 20:00", status: "Verified & Bookable" },
@@ -63,7 +63,7 @@ export default function AdminAvailabilityPage() {
           Clinic Availability & Operating Hours
         </h1>
         <p className="text-[13px] text-[#41454d]">
-          Operating hours schedule (Africa/Kampala timezone). Friday hours require explicit administrative verification before unlocking public online bookings.
+          Operating hours schedule (Africa/Kampala timezone). Friday is a normal working day (8:00 AM – 8:00 PM).
         </p>
       </div>
 
@@ -74,7 +74,7 @@ export default function AdminAvailabilityPage() {
         </div>
       )}
 
-      {/* Friday Verification Card */}
+      {/* Friday Hours Configuration Card */}
       <div className="bg-white rounded-xl border border-[#dddddd] p-6 shadow-sm space-y-4">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
@@ -89,11 +89,11 @@ export default function AdminAvailabilityPage() {
                     : "bg-amber-100 text-amber-900"
                 }`}
               >
-                {fridayVerified ? "Verified" : "DRAFT / UNCONFIRMED"}
+                {fridayVerified ? "Verified (Normal Working Day)" : "DRAFT / UNCONFIRMED"}
               </span>
             </div>
             <p className="text-[13px] text-[#41454d]">
-              Friday’s stated hours of 8:00 AM–8:30 AM appear unusual. Do not enable live online availability for Friday until an administrator confirms the correct hours.
+              Friday is configured as a standard working day from 8:00 AM to 8:00 PM, fully unlocked for patient bookings.
             </p>
           </div>
 

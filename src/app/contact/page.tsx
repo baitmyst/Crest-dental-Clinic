@@ -143,9 +143,9 @@ export default function ContactPage() {
                     <span>Monday – Thursday</span>
                     <span className="font-medium text-[#181d26]">8:00 AM – 8:00 PM</span>
                   </div>
-                  <div className="flex justify-between pb-2 border-b border-[#dddddd] text-amber-800">
+                  <div className="flex justify-between pb-2 border-b border-[#dddddd]">
                     <span>Friday</span>
-                    <span className="italic font-medium">Call clinic to confirm</span>
+                    <span className="font-medium text-[#181d26]">8:00 AM – 8:00 PM</span>
                   </div>
                   <div className="flex justify-between pb-2 border-b border-[#dddddd]">
                     <span>Saturday</span>
