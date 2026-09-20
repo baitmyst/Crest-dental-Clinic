@@ -34,7 +34,7 @@ export default function AboutPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               About Our Clinic
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -49,7 +49,7 @@ export default function AboutPage() {
                 <span>{PRIMARY_CTA}</span>
               </Link>
               <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                <Phone className="w-4 h-4 text-[#08c068]" />
+                <Phone className="w-4 h-4 text-[#0284c7]" />
                 <span>{SECONDARY_CTA}</span>
               </a>
             </div>
@@ -61,8 +61,8 @@ export default function AboutPage() {
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
+            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4 shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284c7]">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -73,8 +73,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
+            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4 shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284c7]">
                 <HeartHandshake className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -85,8 +85,8 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4">
-              <div className="w-10 h-10 rounded-md bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068]">
+            <div className="bg-white p-8 rounded-lg border border-[#dddddd] space-y-4 shadow-sm">
+              <div className="w-10 h-10 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284c7]">
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -162,7 +162,7 @@ export default function AboutPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Our Practice Environment
             </span>
             <h2 className="text-[32px] sm:text-[36px] font-normal text-[#181d26] tracking-tight">
@@ -217,7 +217,7 @@ export default function AboutPage() {
               <span>{PRIMARY_CTA}</span>
             </Link>
             <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-              <Phone className="w-4 h-4 text-[#08c068]" />
+              <Phone className="w-4 h-4 text-[#0284c7]" />
               <span>{SECONDARY_CTA}</span>
             </a>
           </div>

@@ -12,15 +12,14 @@ import {
   Stethoscope,
   XCircle,
 } from "lucide-react";
-import { prisma } from "@/lib/prisma";
-import { getStaffSession } from "@/lib/auth";
-import { supabaseAdmin } from "@/lib/supabase";
-import { AppointmentStatus, InquiryStatus } from "@prisma/client";
+import { getStaffSession } from "@/services/auth";
+import { supabaseAdmin } from "@/services/supabase";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   const session = await getStaffSession();
 
-  // Load counts safely
   let totalAppointments = 0;
   let pendingAppointments = 0;
   let confirmedAppointments = 0;
@@ -34,61 +33,69 @@ export default async function AdminDashboardPage() {
 
   try {
     const [
-      _totalAppointments,
-      _pendingAppointments,
-      _confirmedAppointments,
-      _completedAppointments,
-      _cancelledAppointments,
-      _noShowAppointments,
-      _openInquiries,
-      _totalClients,
-      _recentAppointments,
-      _recentInquiries,
+      totalRes,
+      pendingRes,
+      confirmedRes,
+      completedRes,
+      cancelledRes,
+      noShowRes,
+      inqRes,
+      clientsRes,
+      recentApptRes,
+      recentInqRes,
     ] = await Promise.all([
-      prisma.appointmentRequest.count(),
-      prisma.appointmentRequest.count({ where: { status: AppointmentStatus.PENDING } }),
-      prisma.appointmentRequest.count({ where: { status: AppointmentStatus.CONFIRMED } }),
-      prisma.appointmentRequest.count({ where: { status: AppointmentStatus.COMPLETED } }),
-      prisma.appointmentRequest.count({ where: { status: AppointmentStatus.CANCELLED } }),
-      prisma.appointmentRequest.count({ where: { status: AppointmentStatus.NO_SHOW } }),
-      prisma.contactInquiry.count({ where: { status: InquiryStatus.OPEN } }),
-      prisma.client.count(),
-      prisma.appointmentRequest.findMany({
-        take: 6,
-        orderBy: { createdAt: "desc" },
-        include: { client: true, service: true },
-      }),
-      prisma.contactInquiry.findMany({
-        take: 4,
-        orderBy: { createdAt: "desc" },
-      }),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CONFIRMED"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "COMPLETED"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CANCELLED"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "NO_SHOW"),
+      supabaseAdmin.from("contact_inquiries").select("*", { count: "exact", head: true }).eq("status", "OPEN"),
+      supabaseAdmin.from("clients").select("*", { count: "exact", head: true }),
+      supabaseAdmin
+        .from("appointment_requests")
+        .select("*, client:clients(full_name, phone, email), service:services(name)")
+        .order("created_at", { ascending: false })
+        .limit(6),
+      supabaseAdmin
+        .from("contact_inquiries")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(4),
     ]);
-    totalAppointments = _totalAppointments;
-    pendingAppointments = _pendingAppointments;
-    confirmedAppointments = _confirmedAppointments;
-    completedAppointments = _completedAppointments;
-    cancelledAppointments = _cancelledAppointments;
-    noShowAppointments = _noShowAppointments;
-    openInquiries = _openInquiries;
-    totalClients = _totalClients;
-    recentAppointments = _recentAppointments;
-    recentInquiries = _recentInquiries;
-  } catch (prismaErr) {
-    console.warn("Prisma error in admin dashboard, querying Supabase client:", prismaErr);
-    try {
-      const [apptRes, pendingRes, inqRes, clientRes] = await Promise.all([
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
-        supabaseAdmin.from("contact_inquiries").select("*", { count: "exact", head: true }).eq("status", "OPEN"),
-        supabaseAdmin.from("clients").select("*", { count: "exact", head: true }),
-      ]);
-      totalAppointments = apptRes.count || 0;
-      pendingAppointments = pendingRes.count || 0;
-      openInquiries = inqRes.count || 0;
-      totalClients = clientRes.count || 0;
-    } catch {
-      // Safe zero defaults preserved
-    }
+
+    totalAppointments = totalRes.count || 0;
+    pendingAppointments = pendingRes.count || 0;
+    confirmedAppointments = confirmedRes.count || 0;
+    completedAppointments = completedRes.count || 0;
+    cancelledAppointments = cancelledRes.count || 0;
+    noShowAppointments = noShowRes.count || 0;
+    openInquiries = inqRes.count || 0;
+    totalClients = clientsRes.count || 0;
+
+    recentAppointments = (recentApptRes.data || []).map((a: any) => ({
+      id: a.id,
+      referenceNumber: a.reference_number,
+      preferredDate: a.preferred_date,
+      preferredTime: a.preferred_time,
+      status: a.status,
+      client: a.client ? { fullName: a.client.full_name, phone: a.client.phone, email: a.client.email } : null,
+      service: a.service ? { name: a.service.name } : null,
+      createdAt: a.created_at,
+    }));
+
+    recentInquiries = (recentInqRes.data || []).map((i: any) => ({
+      id: i.id,
+      name: i.name,
+      email: i.email,
+      phone: i.phone,
+      subject: i.subject,
+      message: i.message,
+      status: i.status,
+      createdAt: i.created_at,
+    }));
+  } catch (err) {
+    console.error("Dashboard Supabase query error:", err);
   }
 
   return (

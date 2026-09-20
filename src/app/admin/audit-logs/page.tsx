@@ -1,5 +1,7 @@
-﻿import { getAuditLogs } from "@/lib/admin-data";
+import { getAuditLogs } from "@/lib/admin-data";
 import { ScrollText, ShieldCheck, User } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminAuditLogsPage() {
   const logs = await getAuditLogs();

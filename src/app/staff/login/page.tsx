@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -30,7 +30,11 @@ export default function StaffLoginPage() {
         throw new Error(data.error || "Login failed");
       }
 
-      router.push("/admin");
+      const redirectTarget =
+        typeof window !== "undefined"
+          ? new URLSearchParams(window.location.search).get("redirect") || "/admin"
+          : "/admin";
+      router.push(redirectTarget);
       router.refresh();
     } catch (err: any) {
       setError(err.message || "Invalid credentials");

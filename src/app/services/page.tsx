@@ -10,7 +10,7 @@ import {
   SECONDARY_CTA,
   PRIMARY_SERVICES,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getActiveServices } from "@/services/services";
 
 export const metadata = {
   title: "Dental Services in Kampala | Dr. Dental Crest Dental Surgery",
@@ -19,15 +19,7 @@ export const metadata = {
 };
 
 export default async function ServicesPage() {
-  let services: any[] = [];
-  try {
-    services = await prisma.service.findMany({
-      where: { isActive: true },
-      orderBy: { createdAt: "asc" },
-    });
-  } catch {
-    // fallback
-  }
+  const services = await getActiveServices();
 
   return (
     <div className="bg-white">
@@ -35,7 +27,7 @@ export default async function ServicesPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Our Dental Services
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -50,7 +42,7 @@ export default async function ServicesPage() {
                 <span>{PRIMARY_CTA}</span>
               </Link>
               <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                <Phone className="w-4 h-4 text-[#08c068]" />
+                <Phone className="w-4 h-4 text-[#0284c7]" />
                 <span>{SECONDARY_CTA}</span>
               </a>
             </div>
@@ -78,14 +70,14 @@ export default async function ServicesPage() {
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     <div className="lg:col-span-7 space-y-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-[#f8fafc] border border-[#dddddd] flex items-center justify-center text-[#08c068] transition-transform duration-200 group-hover:scale-105">
+                        <div className="w-10 h-10 rounded-lg bg-sky-50 border border-sky-100 flex items-center justify-center text-[#0284c7] transition-transform duration-200 group-hover:scale-105">
                           <ShieldCheck className="w-5 h-5" />
                         </div>
-                        <span className="text-[13px] font-semibold text-[#08c068] tracking-wider uppercase">
+                        <span className="text-[13px] font-semibold text-[#0284c7] tracking-wider uppercase">
                           Service Category 0{idx + 1}
                         </span>
                       </div>
-                      <h2 className="text-[24px] sm:text-[28px] font-medium text-[#181d26] group-hover:text-[#08c068] transition-colors duration-200">
+                      <h2 className="text-[24px] sm:text-[28px] font-medium text-[#181d26] group-hover:text-[#0284c7] transition-colors duration-200">
                         {service.name}
                       </h2>
                       <p className="text-[15px] text-[#41454d] leading-relaxed">
@@ -96,7 +88,7 @@ export default async function ServicesPage() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
                           {benefits.slice(0, 4).map((b: string, bIdx: number) => (
                             <div key={bIdx} className="flex items-center gap-2 text-[13px] text-[#333840]">
-                              <CheckCircle2 className="w-4 h-4 text-[#08c068] shrink-0" />
+                              <CheckCircle2 className="w-4 h-4 text-[#0284c7] shrink-0" />
                               <span>{b}</span>
                             </div>
                           ))}

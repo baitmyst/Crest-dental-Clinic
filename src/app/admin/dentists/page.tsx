@@ -1,6 +1,8 @@
-﻿import { getDentists } from "@/lib/admin-data";
+import { getDentists } from "@/lib/admin-data";
 import { UserCog, CheckCircle2, ShieldCheck, Stethoscope } from "lucide-react";
 import { LEAD_SPECIALIST } from "@/lib/constants";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDentistsPage() {
   const dentists = await getDentists();

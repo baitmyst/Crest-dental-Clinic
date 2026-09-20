@@ -1,6 +1,8 @@
 import { getNotifications } from "@/lib/admin-data";
 import { Bell, Mail, MessageSquare, CheckCircle2 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminNotificationsPage() {
   const notifications = await getNotifications();
 

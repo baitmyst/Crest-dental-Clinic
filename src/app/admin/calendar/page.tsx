@@ -1,6 +1,8 @@
-﻿import { getAppointments } from "@/lib/admin-data";
-import { getStaffSession } from "@/lib/auth";
+import { getAppointments } from "@/lib/admin-data";
+import { getStaffSession } from "@/services/auth";
 import { CalendarRange, Clock, User, CheckCircle2 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminCalendarPage() {
   const session = await getStaffSession();

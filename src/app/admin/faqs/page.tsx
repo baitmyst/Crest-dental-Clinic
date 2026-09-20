@@ -1,5 +1,7 @@
-﻿import { getFaqs } from "@/lib/admin-data";
+import { getFaqs } from "@/lib/admin-data";
 import { HelpCircle, CheckCircle2, Edit } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminFaqsPage() {
   const faqs = await getFaqs();

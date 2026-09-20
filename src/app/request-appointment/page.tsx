@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -45,6 +45,10 @@ export default function RequestAppointmentPage() {
   const [clientMessage, setClientMessage] = useState("");
   const [privacyConsent, setPrivacyConsent] = useState(false);
 
+  // Dynamic Services from Supabase
+  const [services, setServices] = useState<Array<{ name: string; slug: string; summary?: string }>>([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
+
   // Availability State
   const [availableSlots, setAvailableSlots] = useState<Array<{ time: string; label: string; available: boolean }>>([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
@@ -58,6 +62,33 @@ export default function RequestAppointmentPage() {
     message: string;
     cancellationToken?: string;
   } | null>(null);
+
+  // Fetch active services from Supabase
+  useEffect(() => {
+    async function loadServices() {
+      try {
+        const res = await fetch("/api/services");
+        const data = await res.json();
+        if (data.services && data.services.length > 0) {
+          setServices(
+            data.services.map((s: any) => ({
+              name: s.name,
+              slug: s.slug,
+              summary: s.short_description || s.name,
+            }))
+          );
+        } else {
+          setServices(PRIMARY_SERVICES);
+        }
+      } catch (err) {
+        console.warn("Could not load services from Supabase, using defaults:", err);
+        setServices(PRIMARY_SERVICES);
+      } finally {
+        setServicesLoading(false);
+      }
+    }
+    loadServices();
+  }, []);
 
   // Default date to tomorrow if not set
   useEffect(() => {
@@ -135,7 +166,7 @@ export default function RequestAppointmentPage() {
   };
 
   const serviceOptions = [
-    ...PRIMARY_SERVICES,
+    ...(services.length > 0 ? services : PRIMARY_SERVICES),
     {
       name: "I am not sure / I would like advice",
       slug: "general-advice",
@@ -148,7 +179,7 @@ export default function RequestAppointmentPage() {
       {/* Top Banner */}
       <div className="bg-[#f8fafc] border-b border-[#dddddd] py-10 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center space-y-3">
-          <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
+          <span className="text-[12px] font-semibold tracking-wider text-[#0284c7] uppercase">
             Guest Appointment System
           </span>
           <h1 className="text-[32px] sm:text-[38px] font-normal text-[#181d26] tracking-tight">
@@ -426,7 +457,7 @@ export default function RequestAppointmentPage() {
                 <p>{slotsNotice}</p>
                 <div className="pt-2">
                   <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary text-[13px] py-1.5 px-3">
-                    <Phone className="w-3.5 h-3.5 text-[#08c068]" />
+                    <Phone className="w-3.5 h-3.5 text-[#0284c7]" />
                     <span>Call {CLINIC_PHONE}</span>
                   </a>
                 </div>

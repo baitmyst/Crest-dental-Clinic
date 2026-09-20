@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -22,7 +22,7 @@ import {
   ChevronRight,
   ShieldCheck,
 } from "lucide-react";
-import { getStaffSession } from "@/lib/auth";
+import { getStaffSession } from "@/services/auth";
 import { CLINIC_NAME } from "@/lib/constants";
 
 export const metadata = {

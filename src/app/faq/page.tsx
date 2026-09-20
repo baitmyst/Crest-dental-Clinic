@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { HelpCircle, Calendar, Phone, ArrowRight } from "lucide-react";
 import FaqAccordion from "@/components/ui/FaqAccordion";
 import {
@@ -8,7 +8,7 @@ import {
   PRIMARY_CTA,
   SECONDARY_CTA,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getFaqs } from "@/lib/admin-data";
 
 export const metadata = {
   title: "Frequently Asked Questions | Dr. Dental Crest Dental Surgery",
@@ -17,15 +17,7 @@ export const metadata = {
 };
 
 export default async function FaqPage() {
-  let faqs: any[] = [];
-  try {
-    faqs = await prisma.faq.findMany({
-      where: { isPublished: true },
-      orderBy: { displayOrder: "asc" },
-    });
-  } catch {
-    // fallback
-  }
+  const faqs = await getFaqs();
 
   return (
     <div className="bg-white">
@@ -33,7 +25,7 @@ export default async function FaqPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Help & Answers
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">

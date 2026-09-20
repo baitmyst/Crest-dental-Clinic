@@ -10,7 +10,7 @@ import {
   SECONDARY_CTA,
   PRIMARY_SERVICES,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getDentists } from "@/services/staff";
 
 export const metadata = {
   title: "Meet Our Dentist | Dr. Dental Crest Dental Surgery",
@@ -19,14 +19,8 @@ export const metadata = {
 };
 
 export default async function DentistsPage() {
-  let dentistProfile = null;
-  try {
-    dentistProfile = await prisma.dentistProfile.findFirst({
-      include: { user: true },
-    });
-  } catch {
-    // fallback
-  }
+  const dentists = await getDentists();
+  const dentistProfile = dentists.length > 0 ? dentists[0] : null;
 
   return (
     <div className="bg-white">
@@ -34,7 +28,7 @@ export default async function DentistsPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Dental Team
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -65,7 +59,7 @@ export default async function DentistsPage() {
 
               <div className="md:col-span-8 space-y-4">
                 <div>
-                  <span className="text-[12px] font-semibold tracking-wider text-[#08c068] uppercase">
+                  <span className="text-[12px] font-semibold tracking-wider text-[#0284c7] uppercase">
                     Lead Dental Specialist
                   </span>
                   <h2 className="text-[28px] font-medium text-[#181d26]">
@@ -78,17 +72,17 @@ export default async function DentistsPage() {
 
                 <p className="text-[15px] text-[#333840] leading-relaxed">
                   {dentistProfile?.biography ||
-                    `${LEAD_SPECIALIST} leads the dental care team at ${CLINIC_NAME}. Learn more about the clinic’s approach to general dentistry, cosmetic treatments, orthodontics, restorative care, and family-focused appointments.`}
+                    `${LEAD_SPECIALIST} provides clinical consultation and treatment across all key dental services at ${CLINIC_NAME}. Focused on clear patient communication, preventative care, and gentle execution.`}
                 </p>
 
-                <div className="pt-2 border-t border-[#dddddd]">
+                <div className="pt-2">
                   <h4 className="text-[13px] font-semibold text-[#181d26] uppercase mb-2">
                     Services Offered
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13px] text-[#333840]">
                     {PRIMARY_SERVICES.map((s) => (
                       <div key={s.slug} className="flex items-center gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#08c068] shrink-0" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#0284c7] shrink-0" />
                         <span>{s.name}</span>
                       </div>
                     ))}

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -81,7 +81,7 @@ export default function ContactPage() {
       <section className="section-rhythm bg-white border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Get in Touch
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -96,7 +96,7 @@ export default function ContactPage() {
                 <span>Call {CLINIC_PHONE}</span>
               </a>
               <Link href="/request-appointment" className="btn-secondary">
-                <Calendar className="w-4 h-4 text-[#08c068]" />
+                <Calendar className="w-4 h-4 text-[#0284c7]" />
                 <span>{PRIMARY_CTA}</span>
               </Link>
             </div>
@@ -113,7 +113,7 @@ export default function ContactPage() {
               {/* Tasteful Location Card (No fake address or fabricated coordinates) */}
               <div className="bg-white rounded-xl border border-[#dddddd] p-7 space-y-5 shadow-sm">
                 <h3 className="text-[18px] font-medium text-[#181d26] flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-[#08c068]" />
+                  <MapPin className="w-5 h-5 text-[#0284c7]" />
                   <span>Clinic Location</span>
                 </h3>
                 <div className="space-y-2 text-[14px]">
@@ -124,9 +124,9 @@ export default function ContactPage() {
                 <div className="pt-2">
                   <a
                     href={`tel:${CLINIC_PHONE_DIGITS}`}
-                    className="btn-secondary w-full justify-center text-[14px] py-2"
+                    className="btn-secondary w-full justify-center text-[14px]"
                   >
-                    <Phone className="w-4 h-4 text-[#08c068]" />
+                    <Phone className="w-4 h-4 text-[#0284c7]" />
                     <span>Call for Driving Directions</span>
                   </a>
                 </div>
@@ -135,7 +135,7 @@ export default function ContactPage() {
               {/* Opening Hours Card */}
               <div className="bg-white rounded-xl border border-[#dddddd] p-7 space-y-4 shadow-sm">
                 <h3 className="text-[18px] font-medium text-[#181d26] flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#08c068]" />
+                  <Clock className="w-5 h-5 text-[#0284c7]" />
                   <span>Operating Hours</span>
                 </h3>
                 <div className="space-y-2.5 text-[14px] text-[#41454d]">

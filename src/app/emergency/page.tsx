@@ -18,24 +18,24 @@ export default function EmergencyPage() {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="section-rhythm bg-[#aa2d00] text-white">
+      <section className="section-rhythm bg-gradient-to-r from-[#0369a1] to-[#0284c7] text-white shadow-lg">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-3xl space-y-6">
-            <span className="text-[12px] font-semibold tracking-wider text-white/80 uppercase">
+            <span className="text-[12px] font-semibold tracking-wider text-sky-100 uppercase">
               Urgent Clinical Support
             </span>
             <h1 className="text-[36px] sm:text-[44px] font-normal tracking-tight leading-tight">
               Emergency Dental Care in Kampala
             </h1>
-            <p className="text-[17px] text-white/90 leading-relaxed">
+            <p className="text-[17px] text-white/95 leading-relaxed">
               If you are experiencing severe dental discomfort, tooth fractures, or dental trauma, please call our clinic immediately for prompt guidance.
             </p>
             <div className="pt-2 flex flex-wrap gap-4">
               <a
                 href={`tel:${CLINIC_PHONE_DIGITS}`}
-                className="bg-white text-[#aa2d00] hover:bg-gray-100 font-medium px-6 py-3.5 rounded-lg inline-flex items-center gap-2 shadow"
+                className="bg-white text-[#0284c7] hover:bg-sky-50 font-medium px-6 py-3.5 rounded-lg inline-flex items-center gap-2 shadow-md transition-colors"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-5 h-5 text-[#0284c7]" />
                 <span className="text-[16px]">Call Clinic: {CLINIC_PHONE}</span>
               </a>
             </div>

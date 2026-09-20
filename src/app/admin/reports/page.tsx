@@ -1,6 +1,7 @@
-﻿import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
+import { supabaseAdmin } from "@/services/supabase";
 import { BarChart3, TrendingUp, Users, CalendarDays, CheckCircle2 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminReportsPage() {
   let totalAppointments = 0;
@@ -11,51 +12,38 @@ export default async function AdminReportsPage() {
   let services: any[] = [];
 
   try {
-    const [t, conf, comp, pend, canc] = await Promise.all([
-      prisma.appointmentRequest.count(),
-      prisma.appointmentRequest.count({ where: { status: "CONFIRMED" } }),
-      prisma.appointmentRequest.count({ where: { status: "COMPLETED" } }),
-      prisma.appointmentRequest.count({ where: { status: "PENDING" } }),
-      prisma.appointmentRequest.count({ where: { status: "CANCELLED" } }),
+    const [tRes, cRes, compRes, pRes, cancRes, sRes, apptsRes] = await Promise.all([
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CONFIRMED"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "COMPLETED"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
+      supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CANCELLED"),
+      supabaseAdmin.from("services").select("*"),
+      supabaseAdmin.from("appointment_requests").select("service_id"),
     ]);
-    totalAppointments = t;
-    confirmedCount = conf;
-    completedCount = comp;
-    pendingCount = pend;
-    cancelledCount = canc;
 
-    services = await prisma.service.findMany({
-      include: {
-        _count: {
-          select: { appointments: true },
-        },
-      },
+    totalAppointments = tRes.count || 0;
+    confirmedCount = cRes.count || 0;
+    completedCount = compRes.count || 0;
+    pendingCount = pRes.count || 0;
+    cancelledCount = cancRes.count || 0;
+
+    const serviceCounts: Record<string, number> = {};
+    (apptsRes.data || []).forEach((a: any) => {
+      if (a.service_id) {
+        serviceCounts[a.service_id] = (serviceCounts[a.service_id] || 0) + 1;
+      }
     });
-  } catch (err) {
-    console.warn("Prisma reports failed, fetching from Supabase:", err);
-    try {
-      const [tRes, cRes, compRes, pRes, cancRes, sRes] = await Promise.all([
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }),
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CONFIRMED"),
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "COMPLETED"),
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "PENDING"),
-        supabaseAdmin.from("appointment_requests").select("*", { count: "exact", head: true }).eq("status", "CANCELLED"),
-        supabaseAdmin.from("services").select("*"),
-      ]);
-      totalAppointments = tRes.count || 0;
-      confirmedCount = cRes.count || 0;
-      completedCount = compRes.count || 0;
-      pendingCount = pRes.count || 0;
-      cancelledCount = cancRes.count || 0;
-      services = (sRes.data || []).map((s: any) => ({
-        id: s.id,
-        name: s.name,
-        category: s.category,
-        _count: { appointments: 0 },
-      }));
-    } catch {}
-  }
 
+    services = (sRes.data || []).map((s: any) => ({
+      id: s.id,
+      name: s.name,
+      category: s.category,
+      _count: { appointments: serviceCounts[s.id] || 0 },
+    }));
+  } catch (err) {
+    console.error("Reports Supabase error:", err);
+  }
 
   return (
     <div className="space-y-6">
@@ -64,74 +52,55 @@ export default async function AdminReportsPage() {
           Clinic Operational Reports & Statistics
         </h1>
         <p className="text-[13px] text-[#41454d]">
-          Aggregated summaries of appointment requests, service demand, and conversion rates.
+          Aggregated performance metrics and service distribution across all registered patient requests.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-xl border border-[#dddddd] shadow-sm space-y-2">
-          <span className="text-[12px] font-semibold text-[#08c068] uppercase">
-            Total Request Volume
-          </span>
-          <div className="text-[32px] font-semibold text-[#181d26]">
-            {totalAppointments}
-          </div>
-          <p className="text-[12px] text-[#41454d]">
-            Total patient inquiries received through web and phone.
-          </p>
+      {/* Summary KPI Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white p-5 rounded-xl border border-[#dddddd] shadow-sm space-y-1">
+          <div className="text-[12px] font-medium text-[#41454d] uppercase tracking-wider">Total Volume</div>
+          <div className="text-[28px] font-semibold text-[#181d26]">{totalAppointments}</div>
+          <p className="text-[11px] text-[#41454d]">All recorded requests</p>
         </div>
-
-        <div className="bg-white p-6 rounded-xl border border-[#dddddd] shadow-sm space-y-2">
-          <span className="text-[12px] font-semibold text-emerald-700 uppercase">
-            Confirmed & Completed
-          </span>
-          <div className="text-[32px] font-semibold text-[#181d26]">
-            {confirmedCount + completedCount}
-          </div>
-          <p className="text-[12px] text-[#41454d]">
-            Appointments verified and delivered by clinic staff.
-          </p>
+        <div className="bg-white p-5 rounded-xl border border-[#dddddd] shadow-sm space-y-1">
+          <div className="text-[12px] font-medium text-emerald-700 uppercase tracking-wider">Confirmed</div>
+          <div className="text-[28px] font-semibold text-[#181d26]">{confirmedCount}</div>
+          <p className="text-[11px] text-[#41454d]">Locked appointments</p>
         </div>
-
-        <div className="bg-white p-6 rounded-xl border border-[#dddddd] shadow-sm space-y-2">
-          <span className="text-[12px] font-semibold text-amber-700 uppercase">
-            Pending Review
-          </span>
-          <div className="text-[32px] font-semibold text-[#181d26]">
-            {pendingCount}
-          </div>
-          <p className="text-[12px] text-[#41454d]">
-            Awaiting receptionist phone outreach.
-          </p>
+        <div className="bg-white p-5 rounded-xl border border-[#dddddd] shadow-sm space-y-1">
+          <div className="text-[12px] font-medium text-blue-700 uppercase tracking-wider">Completed</div>
+          <div className="text-[28px] font-semibold text-[#181d26]">{completedCount}</div>
+          <p className="text-[11px] text-[#41454d]">Delivered dental care</p>
+        </div>
+        <div className="bg-white p-5 rounded-xl border border-[#dddddd] shadow-sm space-y-1">
+          <div className="text-[12px] font-medium text-amber-700 uppercase tracking-wider">Pending Review</div>
+          <div className="text-[28px] font-semibold text-[#181d26]">{pendingCount}</div>
+          <p className="text-[11px] text-[#41454d]">Awaiting reception action</p>
         </div>
       </div>
 
-      {/* Service Demand Breakdown */}
+      {/* Service Breakdown */}
       <div className="bg-white rounded-xl border border-[#dddddd] p-6 shadow-sm space-y-4">
-        <h2 className="text-[18px] font-medium text-[#181d26]">
-          Service Category Demand
+        <h2 className="text-[16px] font-medium text-[#181d26]">
+          Appointment Demand by Dental Service
         </h2>
         <div className="space-y-3">
-          {services.map((svc) => (
-            <div key={svc.id} className="space-y-1">
-              <div className="flex justify-between text-[13px]">
-                <span className="font-medium text-[#181d26]">{svc.name}</span>
-                <span className="text-[#41454d] font-semibold">{svc._count.appointments} requests</span>
+          {services.map((s) => {
+            const count = s._count?.appointments || 0;
+            const pct = totalAppointments > 0 ? Math.round((count / totalAppointments) * 100) : 0;
+            return (
+              <div key={s.id} className="space-y-1 text-[13px]">
+                <div className="flex justify-between font-medium text-[#181d26]">
+                  <span>{s.name} ({s.category})</span>
+                  <span>{count} requests ({pct}%)</span>
+                </div>
+                <div className="w-full bg-[#f8fafc] border border-[#dddddd] h-2 rounded-full overflow-hidden">
+                  <div className="bg-[#08c068] h-full rounded-full" style={{ width: `${pct}%` }}></div>
+                </div>
               </div>
-              <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                <div
-                  className="bg-[#08c068] h-full"
-                  style={{
-                    width: `${
-                      totalAppointments > 0
-                        ? (svc._count.appointments / totalAppointments) * 100
-                        : 0
-                    }%`,
-                  }}
-                ></div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

@@ -1,5 +1,7 @@
-﻿import { getInquiries } from "@/lib/admin-data";
+import { getInquiries } from "@/lib/admin-data";
 import { MessageSquare, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminInquiriesPage() {
   const inquiries = await getInquiries();

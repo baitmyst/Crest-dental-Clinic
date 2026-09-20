@@ -1,6 +1,8 @@
 import { getStaffUsers } from "@/lib/admin-data";
 import { UserCheck, ShieldAlert, Key, Mail, Phone } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminStaffPage() {
   const staffUsers = await getStaffUsers();
 

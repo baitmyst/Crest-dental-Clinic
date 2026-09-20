@@ -1,5 +1,7 @@
-﻿import { getClients } from "@/lib/admin-data";
+import { getClients } from "@/lib/admin-data";
 import { Users, Phone, Mail, Calendar, Clock, CheckCircle2 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminClientsPage() {
   const clients = await getClients();
@@ -70,7 +72,7 @@ export default async function AdminClientsPage() {
               </div>
               {client.appointments.length > 0 && (
                 <div className="p-2 bg-[#f8fafc] rounded border border-gray-200 text-[11px] text-[#333840]">
-                  Latest: {client.appointments[0].service.name} ({client.appointments[0].status})
+                  Latest: {client.appointments[0]?.service?.name || "Dental Care"} ({client.appointments[0]?.status})
                 </div>
               )}
             </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -27,12 +27,12 @@ export default function Header() {
       }`}
     >
       {/* Top Announcement Bar */}
-      <div className="bg-[#08c068] text-white text-[13px] py-2 px-4 transition-colors shadow-sm">
+      <div className="bg-[#0284c7] text-white text-[13px] py-2 px-4 transition-colors shadow-sm">
         <div className="max-w-[1280px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            <span className="inline-block w-2 h-2 rounded-full bg-sky-200 animate-pulse"></span>
             <span className="font-medium">Professional Dental Care in Kampala</span>
-            <span className="hidden md:inline text-white/60">|</span>
+            <span className="hidden md:inline text-sky-200/60">|</span>
             <span className="hidden md:inline text-white/95">
               Mon–Thu, Sat: 8:00 AM–8:00 PM · Sun: 9:00 AM–5:00 PM
             </span>
@@ -40,9 +40,9 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <a
               href={`tel:${CLINIC_PHONE_DIGITS}`}
-              className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors duration-200"
+              className="flex items-center gap-1.5 text-white/95 hover:text-white font-medium transition-colors duration-200"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5 text-sky-200" />
               <span>{CLINIC_PHONE}</span>
             </a>
             <a
@@ -59,11 +59,11 @@ export default function Header() {
       <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between">
         {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-lg bg-[#08c068] text-white flex items-center justify-center font-semibold text-lg tracking-tight transition-transform duration-200 group-hover:scale-105">
+          <div className="w-10 h-10 rounded-lg bg-[#08c068] text-white flex items-center justify-center font-semibold text-lg tracking-tight transition-transform duration-200 group-hover:scale-105 shadow-sm">
             DC
           </div>
           <div>
-            <div className="font-medium text-[#181d26] text-[17px] leading-tight tracking-tight group-hover:text-[#08c068] transition-colors duration-200">
+            <div className="font-medium text-[#181d26] text-[17px] leading-tight tracking-tight group-hover:text-[#0284c7] transition-colors duration-200">
               Dr. Dental Crest
             </div>
             <div className="text-[12px] text-[#41454d] font-normal tracking-wide uppercase">
@@ -74,22 +74,22 @@ export default function Header() {
 
         {/* Desktop Links */}
         <div className="hidden lg:flex items-center gap-7 text-[14px] text-[#333840] font-normal">
-          <Link href="/" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             Home
           </Link>
-          <Link href="/about" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/about" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             About Us
           </Link>
-          <Link href="/services" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/services" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             Services
           </Link>
-          <Link href="/dentists" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/dentists" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             Our Dentist
           </Link>
-          <Link href="/faq" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/faq" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             FAQs
           </Link>
-          <Link href="/contact" className="relative py-1 hover:text-[#08c068] transition-colors duration-200">
+          <Link href="/contact" className="relative py-1 hover:text-[#0284c7] transition-colors duration-200">
             Contact
           </Link>
         </div>
@@ -98,9 +98,9 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-3">
           <a
             href={`tel:${CLINIC_PHONE_DIGITS}`}
-            className="text-[14px] text-[#181d26] font-medium flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-gray-100 hover:text-[#08c068] transition-all duration-200"
+            className="text-[14px] text-[#181d26] font-medium flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-sky-50 hover:text-[#0284c7] transition-all duration-200"
           >
-            <Phone className="w-4 h-4 text-[#08c068]" />
+            <Phone className="w-4 h-4 text-[#0284c7]" />
             <span>{CLINIC_PHONE}</span>
           </a>
           <Link href="/request-appointment" className="btn-primary py-2.5 px-5 text-[15px] group">

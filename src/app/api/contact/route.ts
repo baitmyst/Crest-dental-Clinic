@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
-import { supabaseAdmin } from "@/lib/supabase";
-import { InquiryStatus } from "@prisma/client";
+import { supabaseAdmin } from "@/services/supabase";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -18,47 +16,34 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const validated = contactSchema.parse(body);
 
-    let inquiryId = "";
-    try {
-      const inquiry = await prisma.contactInquiry.create({
-        data: {
-          name: validated.name,
-          phone: validated.phone,
-          email: validated.email,
-          subject: validated.subject,
-          message: validated.message,
-          status: InquiryStatus.OPEN,
-        },
-      });
-      inquiryId = inquiry.id;
-    } catch (err) {
-      console.warn("Prisma contact inquiry creation failed, inserting via Supabase:", err);
-      const { data: supaInq } = await supabaseAdmin
-        .from("contact_inquiries")
-        .insert({
-          name: validated.name,
-          phone: validated.phone,
-          email: validated.email,
-          subject: validated.subject,
-          message: validated.message,
-          status: "OPEN",
-        })
-        .select("id")
-        .maybeSingle();
+    const { data: supaInq, error: inqErr } = await supabaseAdmin
+      .from("contact_inquiries")
+      .insert({
+        name: validated.name,
+        phone: validated.phone,
+        email: validated.email,
+        subject: validated.subject,
+        message: validated.message,
+        status: "OPEN",
+      })
+      .select("id")
+      .single();
 
-      inquiryId = supaInq?.id || `inq-${Date.now()}`;
+    if (inqErr || !supaInq) {
+      console.error("Contact inquiry creation error:", inqErr);
+      throw new Error("Failed to submit inquiry to database");
     }
 
     return NextResponse.json({
       success: true,
-      id: inquiryId,
+      id: supaInq.id,
       message:
-        "Thank you for contacting Dr. Dental Crest Dental Surgery. Our team will respond as soon as possible.",
+        "Thank you for contacting Dr. Dental Crest Dental Surgery. Our team will review your inquiry and respond shortly.",
     });
   } catch (error: any) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { error: error.errors[0]?.message || "Invalid input" },
+        { error: error.errors[0]?.message || "Invalid input data" },
         { status: 400 }
       );
     }

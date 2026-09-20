@@ -1,6 +1,8 @@
-﻿import { getServices } from "@/lib/admin-data";
+import { getServices } from "@/lib/admin-data";
 import Link from "next/link";
 import { Stethoscope, Clock, ShieldCheck, ArrowRight } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminServicesPage() {
   const services = await getServices();

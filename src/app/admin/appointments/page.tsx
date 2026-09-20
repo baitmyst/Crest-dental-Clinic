@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -15,7 +15,9 @@ import {
   UserCheck,
   ChevronDown,
   RefreshCw,
+  Sparkles,
 } from "lucide-react";
+import { supabase } from "@/services/supabase";
 
 interface Appointment {
   id: string;
@@ -54,6 +56,7 @@ export default function AdminAppointmentsPage() {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const [updating, setUpdating] = useState(false);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
+  const [realtimeNotification, setRealtimeNotification] = useState<string | null>(null);
 
   // Modal edit fields
   const [newStatus, setNewStatus] = useState("");
@@ -76,6 +79,26 @@ export default function AdminAppointmentsPage() {
 
   useEffect(() => {
     fetchAppointments();
+
+    // Supabase Realtime: listen for any INSERT or UPDATE on appointment_requests
+    const channel = supabase
+      .channel("admin-appointments-live")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "appointment_requests" },
+        (payload: any) => {
+          if (payload.eventType === "INSERT") {
+            setRealtimeNotification("New appointment request received in real time!");
+            setTimeout(() => setRealtimeNotification(null), 5000);
+          }
+          fetchAppointments();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const openEditModal = (apt: Appointment) => {
@@ -154,6 +177,13 @@ export default function AdminAppointmentsPage() {
 
   return (
     <div className="space-y-6">
+      {realtimeNotification && (
+        <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-lg flex items-center gap-2.5 text-[13px] shadow-sm">
+          <Sparkles className="w-4 h-4 text-emerald-600 shrink-0 animate-spin" />
+          <span className="font-medium">{realtimeNotification}</span>
+        </div>
+      )}
+
       {/* Page Title & Refresh */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#dddddd]">
         <div>

@@ -20,7 +20,7 @@ import {
   SECONDARY_CTA,
   PRIMARY_SERVICES,
 } from "@/lib/constants";
-import { prisma } from "@/lib/prisma";
+import { getDentists } from "@/services/staff";
 
 export const metadata = {
   title: `${LEAD_SPECIALIST} - Lead Dental Specialist | ${CLINIC_NAME}`,
@@ -28,14 +28,8 @@ export const metadata = {
 };
 
 export default async function DrSilverProfilePage() {
-  let profile = null;
-  try {
-    profile = await prisma.dentistProfile.findFirst({
-      include: { user: true },
-    });
-  } catch {
-    // fallback
-  }
+  const dentists = await getDentists();
+  const profile = dentists.length > 0 ? dentists[0] : null;
 
   return (
     <div className="bg-white">
@@ -57,7 +51,7 @@ export default async function DrSilverProfilePage() {
 
             <div className="lg:col-span-8 space-y-5">
               <div>
-                <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+                <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
                   Lead Dental Specialist
                 </span>
                 <h1 className="text-[36px] sm:text-[42px] font-normal text-[#181d26] tracking-tight leading-tight">
@@ -97,7 +91,7 @@ export default async function DrSilverProfilePage() {
                   <span>Request an Appointment with {LEAD_SPECIALIST}</span>
                 </Link>
                 <a href={`tel:${CLINIC_PHONE_DIGITS}`} className="btn-secondary">
-                  <Phone className="w-4 h-4 text-[#08c068]" />
+                  <Phone className="w-4 h-4 text-[#0284c7]" />
                   <span>Call {CLINIC_PHONE}</span>
                 </a>
               </div>
@@ -110,7 +104,7 @@ export default async function DrSilverProfilePage() {
       <section className="section-rhythm bg-[#f8fafc] border-b border-[#dddddd]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mb-10">
-            <span className="text-[13px] font-semibold tracking-wider text-[#08c068] uppercase">
+            <span className="text-[13px] font-semibold tracking-wider text-[#0284c7] uppercase">
               Areas of Dental Practice
             </span>
             <h2 className="text-[30px] font-normal text-[#181d26] tracking-tight mt-1">
@@ -122,7 +116,7 @@ export default async function DrSilverProfilePage() {
             {PRIMARY_SERVICES.map((s) => (
               <div
                 key={s.slug}
-                className="bg-white p-6 rounded-lg border border-[#dddddd] space-y-3 flex flex-col justify-between"
+                className="bg-white p-6 rounded-lg border border-[#dddddd] space-y-3 flex flex-col justify-between card-interactive"
               >
                 <div className="space-y-2">
                   <h3 className="text-[18px] font-medium text-[#181d26]">
@@ -135,13 +129,13 @@ export default async function DrSilverProfilePage() {
                 <div className="pt-4 flex items-center justify-between border-t border-[#dddddd] text-[13px]">
                   <Link
                     href={`/services/${s.slug}`}
-                    className="font-medium text-[#1b61c9] hover:text-[#1a3866]"
+                    className="font-medium text-[#0284c7] hover:text-[#0369a1]"
                   >
                     View Details
                   </Link>
                   <Link
                     href={`/request-appointment?service=${s.slug}&dentist=dr-silver`}
-                    className="font-medium text-[#181d26] hover:text-[#08c068]"
+                    className="font-medium text-[#181d26] hover:text-[#0284c7]"
                   >
                     Book with Dr. Silver
                   </Link>

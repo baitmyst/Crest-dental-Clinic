@@ -2,6 +2,8 @@ import { getSiteSettings } from "@/lib/admin-data";
 import { Settings, ShieldCheck, Phone, MapPin, Globe } from "lucide-react";
 import { CLINIC_NAME, CLINIC_CITY, CLINIC_PHONE } from "@/lib/constants";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminSettingsPage() {
   const settings = await getSiteSettings();
 

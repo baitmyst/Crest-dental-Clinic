@@ -1,6 +1,8 @@
 import { getTestimonials } from "@/lib/admin-data";
 import { Star, AlertCircle, CheckCircle2 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminTestimonialsPage() {
   const testimonials = await getTestimonials();
 

@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Phone, MapPin, Clock, ShieldCheck, HeartHandshake, Lock } from "lucide-react";
 import { CLINIC_NAME, CLINIC_CITY, CLINIC_PHONE, CLINIC_PHONE_DIGITS, PRIMARY_SERVICES } from "@/lib/constants";
 
@@ -85,7 +85,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/emergency" className="text-[#aa2d00] hover:underline font-medium">
+                <Link href="/emergency" className="text-[#0284c7] hover:underline font-medium">
                   Dental Emergencies
                 </Link>
               </li>
